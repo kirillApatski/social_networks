@@ -1,0 +1,17 @@
+.navigation{
+    background-color: gray;
+    min-width: 20%;
+    flex: 0;
+}
+.item {
+    color: white;
+}
+.item.active {
+    color: gold;
+}
+.navigation nav ul {
+    list-style-type: none;
+}
+.navigation nav ul li a {
+    text-decoration: none;
+}

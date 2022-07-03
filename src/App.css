@@ -9,6 +9,7 @@
     flex-wrap: wrap;
 }
 .appWrapperContent{
+    border: solid 1px black;
     background-color: gray;
     flex: 1;
 }

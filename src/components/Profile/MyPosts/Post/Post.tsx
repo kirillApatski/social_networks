@@ -1,17 +1,13 @@
 import s from "./Post.module.css";
 import React from "react";
+import {PostsType} from "../../../../App";
 
 type PostPropsType = {
     posts: PostsType[]
 }
 
-type PostsType = {
-    id: number
-    message: string
-    likeCount: number
-}
 
-export const Post = (props: PostPropsType) => {
+export const  Post = (props: PostPropsType) => {
     let postItem = props.posts.map(post => {
         return (
             <div className={s.post} key={post.id}>

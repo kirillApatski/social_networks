@@ -1,12 +1,13 @@
 import s from "./MyPosts.module.css";
 import React from "react";
 import {Post} from "./Post/Post";
+import {PostsType} from "../../../App";
 
-export const MyPosts = () => {
-    let posts = [
-        {id:1, message: "Hi, how are you", likeCount : 15},
-        {id:2, message: "It's my first post", likeCount : 20},
-    ]
+
+type MyPostsPropsType = {
+    posts: PostsType[]
+}
+export const MyPosts = (props: MyPostsPropsType) => {
     return (
         <div className={s.myPosts}>
             <h3>My posts</h3>
@@ -18,7 +19,7 @@ export const MyPosts = () => {
                     <button>Add post</button>
                 </div>
             </div>
-            <Post posts={posts}/>
+            <Post posts={props.posts}/>
         </div>
     )
 }

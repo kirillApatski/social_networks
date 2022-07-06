@@ -1,12 +1,16 @@
 import React from "react";
 import {MyPosts} from "./MyPosts/MyPosts";
 import {ProfileInfo} from "./ProfileInfo/ProfileInfo";
+import {ProfilePages} from "../../App";
 
-export const Profile = () => {
+type ProfilePropsType = {
+    profilePages: ProfilePages
+}
+export const Profile = (props:ProfilePropsType) => {
     return (
         <section>
             <ProfileInfo/>
-            <MyPosts/>
+            <MyPosts posts={props.profilePages.posts}/>
         </section>
     )
 }

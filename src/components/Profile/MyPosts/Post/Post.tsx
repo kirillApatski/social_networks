@@ -1,6 +1,6 @@
 import s from "./Post.module.css";
 import React from "react";
-import {PostsType} from "../../../../App";
+import {PostsType} from "../../../redax/state";
 
 type PostPropsType = {
     posts: PostsType[]

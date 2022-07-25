@@ -1,5 +1,5 @@
 import React from "react";
-import {MessagesType} from "../../../App";
+import {MessagesType} from "../../redax/state";
 
 type MessagesItemPropsType = {
     messages: MessagesType[]

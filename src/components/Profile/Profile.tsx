@@ -1,19 +1,21 @@
 import React from "react";
 import {MyPosts} from "./MyPosts/MyPosts";
 import {ProfileInfo} from "./ProfileInfo/ProfileInfo";
-import {ProfilePages} from "../redax/state";
+import {ActionsTypes, ProfilePages} from "../redax/state";
 
 type ProfilePropsType = {
     profilePages: ProfilePages
-    addPost: (postText: string) => void
-    changeNewPostText: (newText: string) => void
+    dispatch: (action: ActionsTypes) => void
 }
 export const Profile = (props: ProfilePropsType) => {
     return (
         <section>
             <ProfileInfo/>
-            <MyPosts posts={props.profilePages.posts} changeNewPostText={props.changeNewPostText}
-                     newPostText={props.profilePages.newPostText} addPost={props.addPost}/>
+            <MyPosts
+                posts={props.profilePages.posts}
+                newPostText={props.profilePages.newPostText}
+                dispatch={props.dispatch}
+            />
         </section>
     )
 }

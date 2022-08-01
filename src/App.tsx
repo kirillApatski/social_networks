@@ -8,15 +8,16 @@ import {News} from "./components/News/News";
 import {Music} from "./components/Music/Music";
 import {Settings} from "./components/Settings/Settings";
 import {BrowserRouter, Route} from "react-router-dom";
-import {InitializationStateType} from "./components/redax/state"
+import {
+    store,
+    StoreType
+} from "./components/redax/state"
 
 type AppPropsType = {
-    addPost: (postText: string) => void
-    initializationState: InitializationStateType
-    changeNewPostText: (newText: string) => void
+    store: StoreType
 }
 
-function App(props:AppPropsType) {
+function App(props: AppPropsType) {
     return (
         <BrowserRouter>
             <div className="app-wrapper">
@@ -24,11 +25,16 @@ function App(props:AppPropsType) {
                 <Navigation/>
                 <div className="appWrapperContent">
                     <Route path={"/dialogs"}
-                           render={() => <Dialogs dialogsPages={props.initializationState.dialogsPages}/>}/>
+                           render={() => <Dialogs
+                               dialogsPages={props.store.getInitializationState().dialogsPages}
+                               dispatch={props.store.dispatch.bind(store)}
+                           />}
+                    />
                     <Route path={"/profile"}
-                           render={() => <Profile profilePages={props.initializationState.profilePages}
-                                                  changeNewPostText={props.changeNewPostText}
-                                                  addPost={props.addPost}/>}
+                           render={() => <Profile
+                               profilePages={props.store.getInitializationState().profilePages}
+                               dispatch={props.store.dispatch.bind(props.store)}
+                           />}
                     />
                     <Route path={"/news"} render={() => <News/>}/>
                     <Route path={"/music"} render={() => <Music/>}/>

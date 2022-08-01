@@ -3,22 +3,19 @@ import ReactDOM from 'react-dom';
 import './index.css';
 import App from './App';
 import {
-    addPost,
-    changeNewPostText,
-    initializationState,
-    InitializationStateType,
-    subscribe
+    store
 } from "./components/redax/state";
 
 
-const rerenderEntireTree = (initializationState: InitializationStateType) => {
+const rerenderEntireTree = () => {
     ReactDOM.render(
         <App
-            addPost={addPost}
-            changeNewPostText={changeNewPostText}
-            initializationState={initializationState}/>,
+            store={store}
+        />,
         document.getElementById('root')
     );
-}
-rerenderEntireTree(initializationState)
-subscribe(()=>rerenderEntireTree(initializationState))
+};
+
+store.subscribe(()=>rerenderEntireTree())
+rerenderEntireTree()
+

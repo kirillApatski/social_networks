@@ -8,10 +8,7 @@ import {News} from "./components/News/News";
 import {Music} from "./components/Music/Music";
 import {Settings} from "./components/Settings/Settings";
 import {BrowserRouter, Route} from "react-router-dom";
-import {
-    store,
-    StoreType
-} from "./components/redax/state"
+import {StoreType} from "./components/redax/redux-store"
 
 type AppPropsType = {
     store: StoreType
@@ -26,13 +23,13 @@ function App(props: AppPropsType) {
                 <div className="appWrapperContent">
                     <Route path={"/dialogs"}
                            render={() => <Dialogs
-                               dialogsPages={props.store.getInitializationState().dialogsPages}
-                               dispatch={props.store.dispatch.bind(store)}
+                               dialogsPages={props.store.getState().dialogsReducer}
+                               dispatch={props.store.dispatch.bind(props.store)}
                            />}
                     />
                     <Route path={"/profile"}
                            render={() => <Profile
-                               profilePages={props.store.getInitializationState().profilePages}
+                               profilePages={props.store.getState().profileReducer}
                                dispatch={props.store.dispatch.bind(props.store)}
                            />}
                     />

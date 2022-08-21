@@ -1,3 +1,6 @@
+import {addPostActionCreator, changeNewTextActionCreator, profileReducer} from "./profileReducer";
+import {dialogsReducer, sendMessageBodyCreator, updateNewMessageBodyCreator} from "./dialogsReducer";
+
 export type InitializationStateType = {
     profilePages: ProfilePages
     dialogsPages: DialogsPagesType
@@ -28,7 +31,7 @@ export type MessagesType = {
 export type StoreType = {
     _initializationState: InitializationStateType
     subscribe: (callBack: () => void) => void
-    getInitializationState: () => InitializationStateType
+    getState: () => InitializationStateType
     onChange: () => void
     dispatch: (action: ActionsTypes) => void
 }
@@ -37,12 +40,6 @@ export type ActionsTypes =
     | ReturnType<typeof changeNewTextActionCreator>
     | ReturnType<typeof sendMessageBodyCreator>
     | ReturnType<typeof updateNewMessageBodyCreator>
-
-const ADD_POST = "ADD-POST";
-const CHANGE_NEW_POST_TEXT = "CHANGE-NEW-POST-TEXT";
-
-const SEND_MESSAGE = "SEND_MESSAGE";
-const UPDATE_NEW_MESSAGE_BODY = "UPDATE_NEW_MESSAGE_BODY";
 
 export const store: StoreType = {
     _initializationState: {
@@ -76,39 +73,19 @@ export const store: StoreType = {
         console.log("state changed")
     },
 
-    getInitializationState() {
+    getState() {
         return this._initializationState
     },
     subscribe(callBack) {
         this.onChange = callBack
     },
     dispatch(action) {
-        if (action.type === ADD_POST) {
-            let newPost: PostsType = {
-                id: 5,
-                message: action.postText,
-                likeCount: 0
-            }
-            this._initializationState.profilePages.posts.push(newPost)
-            this._initializationState.profilePages.newPostText = ""
-            this.onChange()
-        } else if (action.type === CHANGE_NEW_POST_TEXT) {
-            this._initializationState.profilePages.newPostText = action.newText
-            this.onChange()
-        } else if (action.type === UPDATE_NEW_MESSAGE_BODY) {
-            this._initializationState.dialogsPages.newMessageBody = action.body
-            this.onChange()
-        } else if (action.type === SEND_MESSAGE) {
-            let body = this._initializationState.dialogsPages.newMessageBody;
-            this._initializationState.dialogsPages.newMessageBody = ""
-            this._initializationState.dialogsPages.messages.push({id: 5, message: body})
-            this.onChange()
-        }
+        this.getState().profilePages = profileReducer(this.getState().profilePages, action)
+        this.getState().dialogsPages = dialogsReducer(this.getState().dialogsPages, action)
+        this.onChange()
     }
 }
 
-export const addPostActionCreator = (postText: string) => ({type: ADD_POST, postText}) as const
-export const changeNewTextActionCreator = (newText: string) => ({type: CHANGE_NEW_POST_TEXT, newText}) as const
 
-export const sendMessageBodyCreator = (newText: string) => ({type: SEND_MESSAGE, newText}) as const
-export const updateNewMessageBodyCreator = (body: string) => ({type: UPDATE_NEW_MESSAGE_BODY, body}) as const
+
+

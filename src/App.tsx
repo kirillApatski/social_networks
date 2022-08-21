@@ -2,13 +2,13 @@ import React from 'react';
 import './App.css';
 import {Header} from "./components/Header/Header";
 import {Navigation} from "./components/Navigation/Navigation";
-import {Dialogs} from "./components/Dialogs/Dialogs";
 import {Profile} from "./components/Profile/Profile";
 import {News} from "./components/News/News";
 import {Music} from "./components/Music/Music";
 import {Settings} from "./components/Settings/Settings";
 import {BrowserRouter, Route} from "react-router-dom";
 import {StoreType} from "./components/redax/redux-store"
+import {DialogsContainer} from "./components/Dialogs/DialogsContainer";
 
 type AppPropsType = {
     store: StoreType
@@ -22,15 +22,13 @@ function App(props: AppPropsType) {
                 <Navigation/>
                 <div className="appWrapperContent">
                     <Route path={"/dialogs"}
-                           render={() => <Dialogs
-                               dialogsPages={props.store.getState().dialogsReducer}
-                               dispatch={props.store.dispatch.bind(props.store)}
+                           render={() => <DialogsContainer
+                               store={props.store}
                            />}
                     />
                     <Route path={"/profile"}
                            render={() => <Profile
-                               profilePages={props.store.getState().profileReducer}
-                               dispatch={props.store.dispatch.bind(props.store)}
+                               store={props.store}
                            />}
                     />
                     <Route path={"/news"} render={() => <News/>}/>

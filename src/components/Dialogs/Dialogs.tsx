@@ -2,34 +2,34 @@ import React, {ChangeEvent} from "react";
 import s from "./Dialogs.module.css"
 import {DialogItem} from "./DialogItem/DialogItem";
 import {Message} from "./Message/Message";
-import {ActionsTypes, DialogsPagesType} from "../redax/store";
-import {sendMessageBodyCreator, updateNewMessageBodyCreator} from "../redax/dialogsReducer";
+import {DialogsPagesType} from "../redax/store";
 
 
 type DialogsPropsType = {
-    dialogsPages: DialogsPagesType
-    dispatch: (action: ActionsTypes) => void
+    onChangeMessageText: (body: string) => void
+    onSendMessageClick: () => void
+    dialogsPage: DialogsPagesType
 }
 export const Dialogs = (props: DialogsPropsType) => {
 
 
     const onSendMessageClick = () => {
-      props.dispatch(sendMessageBodyCreator(props.dialogsPages.newMessageBody))
+      props.onSendMessageClick()
     }
     const onChangeMessageText = (e: ChangeEvent<HTMLTextAreaElement>) => {
         let body = e.currentTarget.value;
-        props.dispatch(updateNewMessageBodyCreator(body))
+        props.onChangeMessageText(body)
     }
 
     return (
         <div className={s.dialogs}>
             <div className={s.dialogsItems}>
-                <DialogItem dialogs={props.dialogsPages.dialogs}/>
+                <DialogItem dialogs={props.dialogsPage.dialogs}/>
             </div>
             <div className={s.messages}>
-                <Message messages={props.dialogsPages.messages}/>
+                <Message messages={props.dialogsPage.messages}/>
                 <div>
-                    <textarea value={props.dialogsPages.newMessageBody} onChange={onChangeMessageText}></textarea>
+                    <textarea value={props.dialogsPage.newMessageBody} onChange={onChangeMessageText}></textarea>
                 </div>
                 <div>
                     <button onClick={onSendMessageClick}>send message</button>

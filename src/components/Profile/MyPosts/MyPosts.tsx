@@ -1,23 +1,24 @@
 import s from "./MyPosts.module.css";
 import React, {ChangeEvent} from "react";
 import {Post} from "./Post/Post";
-import {ActionsTypes, PostsType} from "../../redax/store";
-import {addPostActionCreator, changeNewTextActionCreator} from "../../redax/profileReducer";
+import {PostsType} from "../../redax/store";
+
 
 
 type MyPostsPropsType = {
     posts: PostsType[]
     newPostText: string
-    dispatch: (action: ActionsTypes) => void
+    changeNewText: (text: string) => void
+    addPost: (text: string) => void
 }
 export const MyPosts = (props: MyPostsPropsType) => {
 
     const addPost = () => {
-        props.dispatch(addPostActionCreator(props.newPostText))
+        props.addPost(props.newPostText)
     }
     const onChangeHandler = (e: ChangeEvent<HTMLTextAreaElement>) => {
         let text = e.currentTarget.value
-        props.dispatch(changeNewTextActionCreator(text))
+        props.changeNewText(text)
     }
     return (
         <div className={s.myPosts}>

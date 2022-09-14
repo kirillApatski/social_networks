@@ -1,5 +1,5 @@
-import {addPostActionCreator, changeNewTextActionCreator, profileReducer} from "./profileReducer";
-import {dialogsReducer, sendMessageBodyCreator, updateNewMessageBodyCreator} from "./dialogsReducer";
+import {addPostActionCreator, changeNewTextActionCreator} from "./profileReducer";
+import {sendMessageBodyCreator, updateNewMessageBodyCreator} from "./dialogsReducer";
 
 export type InitializationStateType = {
     profilePages: ProfilePages
@@ -80,12 +80,13 @@ export const store: StoreType = {
         this.onChange = callBack
     },
     dispatch(action) {
-        this.getState().profilePages = profileReducer(this.getState().profilePages, action)
-        this.getState().dialogsPages = dialogsReducer(this.getState().dialogsPages, action)
+        // this.getState().profilePages = profileReducer(this.getState().profilePages, action)
+        // this.getState().dialogsPages = dialogsReducer(this.getState().dialogsPages, action)
         this.onChange()
     }
 }
 
-
+// export const sendMessageBodyCreator = () => ({type: "SEND_MESSAGE"}) as const
+// export const updateNewMessageBodyCreator = (body: string) => ({type: "UPDATE_NEW_MESSAGE_BODY", body}) as const
 
 

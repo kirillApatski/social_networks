@@ -8,7 +8,7 @@ type PostPropsType = {
 
 
 export const  Post = (props: PostPropsType) => {
-    debugger
+
     let postItem = props.posts.map(post => {
         return (
             <div className={s.post} key={post.id}>

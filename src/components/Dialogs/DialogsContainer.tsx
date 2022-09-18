@@ -7,23 +7,9 @@ import {
 import {Dialogs} from "./Dialogs";
 import {connect} from "react-redux";
 import {Dispatch} from "redux";
-import {StoreType} from "../redax/redux-store";
+import {AppStateType} from "../redax/redux-store";
 
 
-// type DialogsPropsType = {
-//     store: StoreType
-// }
-// export const DialogsContainer = (props: DialogsPropsType) => {
-//     const onSendMessageClick = () => {
-//       props.store.dispatch(sendMessageBodyCreator())
-//     }
-//     const onChangeMessageText = (body: string) => {
-//         props.store.dispatch(updateNewMessageBodyCreator(body))
-//     }
-//     return (
-//         <Dialogs dialogsPage={props.store.getState().dialogsPages} onChangeMessageText={onChangeMessageText} onSendMessageClick={onSendMessageClick}/>
-//     )
-// }
 
 type mapStateToPropsType = {
     dialogsPage: DialogsPagesType
@@ -32,7 +18,7 @@ type mapDispatchToPropsType = {
     onChangeMessageText: (body: string) => void
     onSendMessageClick: () => void
 }
-const mapStateToProps = (state: StoreType): mapStateToPropsType => {
+const mapStateToProps = (state: AppStateType): mapStateToPropsType => {
     return {
         dialogsPage : state.dialogsPages,
     }

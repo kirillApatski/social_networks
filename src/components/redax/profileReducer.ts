@@ -32,15 +32,16 @@ export const profileReducer = (state: InitialState = initialState, action: Actio
                 posts: [...state.posts, newPost],
                 newPostText: ""
             }
-        case "CHANGE-NEW-POST-TEXT":
+        case "UPDATE-NEW-POST-TEXT":
 
             return {
                 ...state,
                 newPostText: action.newText
             }
+        default:
+            return state
     }
-    return state
 }
 
 export const addPostActionCreator = (postText: string) => ({type: "ADD-POST", postText}) as const
-export const changeNewTextActionCreator = (newText: string) => ({type: "CHANGE-NEW-POST-TEXT", newText}) as const
+export const changeNewTextActionCreator = (newText: string) => ({type: "UPDATE-NEW-POST-TEXT", newText}) as const

@@ -12,7 +12,6 @@ type MyPostsPropsType = {
     addPost: (text: string) => void
 }
 export const MyPosts = (props: MyPostsPropsType) => {
-debugger
     const addPost = () => {
         props.addPost(props.newPostText)
     }

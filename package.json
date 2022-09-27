@@ -27,6 +27,7 @@
     "uuid": "8.3.2",
     "web-vitals": "2.1.0"
   },
+  "home-page" : "https://kirillApatski.github.io/social_networks",
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",

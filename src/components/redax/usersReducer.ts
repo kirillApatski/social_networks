@@ -11,7 +11,7 @@ export type userType = {
     followed: boolean
     name: string
     status: string
-    // location: { city: string, country: string }
+
     "uniqueUrlName": string,
     "photos": {
         "small": string,

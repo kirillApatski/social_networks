@@ -15,6 +15,7 @@ export class Users extends React.Component<UsersPropsType> {
     render() {
         return (
             <div>
+
                 {
                     this.props.users.map(user => {
                         return (

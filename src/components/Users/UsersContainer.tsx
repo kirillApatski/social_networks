@@ -31,7 +31,7 @@ export type mapDispatchToPropsType = {
 export type UsersPropsType = mapStateToPropsType & mapDispatchToPropsType
 
 
-export class UsersAPIComponent extends React.Component<UsersPropsType> {
+export class UsersContainer extends React.Component<UsersPropsType> {
 
     componentDidMount() {
         this.props.toggleIsFetching(true)
@@ -53,7 +53,6 @@ export class UsersAPIComponent extends React.Component<UsersPropsType> {
                 this.props.toggleIsFetching(false)
             })
     }
-
     render() {
         return (
             <>
@@ -86,5 +85,5 @@ const mapStateToProps = (state: AppStateType): mapStateToPropsType => {
 
 
 
-export const UsersContainer = connect(mapStateToProps, {follow, unfollow, setUsers, setUsersTotalCount, setCurrentPage, toggleIsFetching})(UsersAPIComponent)
+export default connect(mapStateToProps, {follow, unfollow, setUsers, setUsersTotalCount, setCurrentPage, toggleIsFetching})(UsersContainer)
 

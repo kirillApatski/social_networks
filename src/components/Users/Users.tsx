@@ -1,7 +1,8 @@
 import React from 'react';
 import styles from "./Users.module.css";
-import {userType} from "../redax/usersReducer";
+import {userType} from "../../redax/usersReducer";
 import {NavLink} from "react-router-dom";
+import {userAPI} from "../../api/api";
 
 type UsersPropsType = {
     usersTotalCount: number
@@ -11,7 +12,8 @@ type UsersPropsType = {
     users: Array<userType>
     follow: (id: string) => void
     unfollow: (id: string) => void
-
+    toggleFollowingProgress: (isFetching: boolean, userId: string) => void
+    followingProgress: Array<string>
 }
 
 export const Users = (props: UsersPropsType) => {
@@ -45,8 +47,31 @@ export const Users = (props: UsersPropsType) => {
 
                                 {
                                     user.followed
-                                        ? <button onClick={() => props.follow(user.id)}>Follow</button>
-                                        : <button onClick={() => props.unfollow(user.id)}>UnFollow</button>
+                                        ? <button disabled={props.followingProgress.some(id => id === user.id)} onClick={() => {
+                                            props.toggleFollowingProgress(true, user.id)
+                                            userAPI.unFollowUser(user.id)
+                                                .then(data => {
+                                                    if (data.resultCode === 0) {
+                                                        props.unfollow(user.id)
+                                                    }
+                                                    props.toggleFollowingProgress(false, user.id)
+                                                })
+                                        }
+
+                                        }>UnFollow</button>
+
+                                        : <button disabled={props.followingProgress.some(id => id === user.id)} onClick={() => {
+                                            props.toggleFollowingProgress(true, user.id)
+                                            userAPI.followUser(user.id)
+                                                .then(data => {
+                                                    if (data.resultCode === 0) {
+                                                        props.follow(user.id)
+                                                    }
+                                                    props.toggleFollowingProgress(false, user.id)
+                                                })
+                                        }
+
+                                        }>Follow</button>
                                 }
                             </div>
                             <div className={styles.userDescription}>

@@ -1,6 +1,6 @@
 import React from 'react';
 import s from "./ProfileInfo.module.css";
-import {ProfileUserType} from "../../redax/profileReducer";
+import {ProfileUserType} from "../../../redax/profileReducer";
 import {Preloader} from "../../common/Preloader/Preloader";
 
 type ProfileInfoType = {

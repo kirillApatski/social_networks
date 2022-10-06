@@ -1,17 +1,17 @@
 import React from "react";
 import {Header} from "./Header";
 import {connect} from "react-redux";
-import {AppStateType} from "../redax/redux-store";
-import {InitialState, setUserData} from "../redax/authReducer";
-import axios from "axios";
+import {AppStateType} from "../../redax/redux-store";
+import {InitialState, setUserData} from "../../redax/authReducer";
+import {userAPI} from "../../api/api";
 
 export class HeaderContainer extends React.Component<InitialState & mapDispatchToProps> {
 
     componentDidMount() {
-        axios.get(`https://social-network.samuraijs.com/api/1.0/auth/me`, {withCredentials: true})
-            .then(response => {
-                if(response.data.resultCode === 0){
-                    let{email, id, login} = response.data.data
+        userAPI.auth()
+            .then(data => {
+                if(data.resultCode === 0){
+                    let{email, id, login} = data.data
                     this.props.setUserData(id, email, login)
                 }
             })

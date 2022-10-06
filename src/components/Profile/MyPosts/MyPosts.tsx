@@ -1,7 +1,7 @@
 import s from "./MyPosts.module.css";
 import React, {ChangeEvent} from "react";
 import {Post} from "./Post/Post";
-import {PostsType} from "../../redax/store";
+import {PostsType} from "../../../redax/store";
 
 
 

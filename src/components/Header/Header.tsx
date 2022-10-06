@@ -1,6 +1,6 @@
 import React from "react";
 import s from "./Header.module.css";
-import {InitialState} from "../redax/authReducer";
+import {InitialState} from "../../redax/authReducer";
 import {NavLink} from "react-router-dom";
 
 

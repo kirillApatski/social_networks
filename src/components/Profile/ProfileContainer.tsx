@@ -1,9 +1,9 @@
 import React from "react";
 import {Profile} from "./Profile";
-import {ProfileUserType, setUserProfile} from "../redax/profileReducer";
+import {ProfileUserType, setUserProfile} from "../../redax/profileReducer";
 import axios from "axios";
 import {connect} from "react-redux";
-import {AppStateType} from "../redax/redux-store";
+import {AppStateType} from "../../redax/redux-store";
 import {RouteComponentProps, withRouter} from "react-router-dom";
 
 

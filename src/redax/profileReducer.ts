@@ -1,3 +1,6 @@
+import {Dispatch} from "redux";
+import {userAPI} from "../api/api";
+
 export type PostsType = {
     id: number
     message: string
@@ -77,3 +80,12 @@ export const profileReducer = (state: InitialStateType = initialState, action: A
 export const addPostActionCreator = (postText: string) => ({type: "ADD-POST", postText}) as const
 export const changeNewTextActionCreator = (newText: string) => ({type: "UPDATE-NEW-POST-TEXT", newText}) as const
 export const setUserProfile = (profile: ProfileUserType) => ({type: "SET-USER-PROFILE", profile}) as const
+
+
+export const getUserProfile = (userId: string) => {
+    return (dispatch: Dispatch) => {
+        userAPI.setUserProfile(userId).then(data => {
+            dispatch(setUserProfile(data))
+        })
+    }
+}

@@ -19,7 +19,7 @@ export const ProfileInfo = (props: ProfileInfoType) => {
                     alt="pictures"/>
             </div>
             <div className={s.description}>
-                <img src={props.profile.photos.small} alt=""/>
+                <img src={props.profile.photos.small} alt="images/text"/>
                 <div>{props.profile.fullName}</div>
                 <div>{props.profile.aboutMe}</div>
                 <div>{props.profile.lookingForAJobDescription}</div>

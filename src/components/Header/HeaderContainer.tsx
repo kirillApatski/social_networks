@@ -2,19 +2,13 @@ import React from "react";
 import {Header} from "./Header";
 import {connect} from "react-redux";
 import {AppStateType} from "../../redax/redux-store";
-import {InitialState, setUserData} from "../../redax/authReducer";
-import {userAPI} from "../../api/api";
+import {InitialState, setUserData, userAuth} from "../../redax/authReducer";
 
 export class HeaderContainer extends React.Component<InitialState & mapDispatchToProps> {
 
     componentDidMount() {
-        userAPI.auth()
-            .then(data => {
-                if(data.resultCode === 0){
-                    let{email, id, login} = data.data
-                    this.props.setUserData(id, email, login)
-                }
-            })
+
+        this.props.userAuth()
     }
 
     render() {
@@ -26,6 +20,7 @@ export class HeaderContainer extends React.Component<InitialState & mapDispatchT
 
 export type mapDispatchToProps = {
     setUserData: (id: number, email: string, login: string) => void
+    userAuth: () => void
 }
 
 const mapStateToProps = (state: AppStateType): InitialState => {
@@ -38,4 +33,4 @@ const mapStateToProps = (state: AppStateType): InitialState => {
 }
 
 
-export default connect(mapStateToProps, {setUserData})(HeaderContainer)
+export default connect(mapStateToProps, {setUserData, userAuth})(HeaderContainer)

@@ -9,6 +9,7 @@ type DialogsPropsType = {
     onChangeMessageText: (body: string) => void
     onSendMessageClick: () => void
     dialogsPage: DialogsPagesType
+    isAuth: boolean
 }
 export const Dialogs = (props: DialogsPropsType) => {
 
@@ -20,7 +21,6 @@ export const Dialogs = (props: DialogsPropsType) => {
         let body = e.currentTarget.value;
         props.onChangeMessageText(body)
     }
-
     return (
         <div className={s.dialogs}>
             <div className={s.dialogsItems}>

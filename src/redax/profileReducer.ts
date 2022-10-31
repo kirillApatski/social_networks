@@ -8,19 +8,16 @@ export type PostsType = {
 }
 
 export type addPostActionCreatorType = ReturnType<typeof addPostActionCreator>
-export type changeNewTextActionCreatorType = ReturnType<typeof changeNewTextActionCreator>
 export type setUserProfileType = ReturnType<typeof setUserProfile>
 export type setUserStatusType = ReturnType<typeof setUserStatus>
-export type ActionsTypes = addPostActionCreatorType | changeNewTextActionCreatorType | setUserProfileType | setUserStatusType
+export type ActionsTypes = addPostActionCreatorType | setUserProfileType | setUserStatusType
 
 export type InitialStateType = {
-    newPostText: string
     posts: PostsType[]
     profile: ProfileUserType | null
     status: string
 }
 let initialState = {
-    newPostText: "",
     posts: [
         {id: 1, message: "Hi, how are you", likeCount: 15},
         {id: 2, message: "It's my first post", likeCount: 20},
@@ -61,13 +58,6 @@ export const profileReducer = (state: InitialStateType = initialState, action: A
             return {
                 ...state,
                 posts: [...state.posts, newPost],
-                newPostText: ""
-            }
-        case "UPDATE-NEW-POST-TEXT":
-
-            return {
-                ...state,
-                newPostText: action.newText
             }
         case "SET-USER-PROFILE":
             return {
@@ -85,7 +75,6 @@ export const profileReducer = (state: InitialStateType = initialState, action: A
 }
 
 export const addPostActionCreator = (postText: string) => ({type: "ADD-POST", postText}) as const
-export const changeNewTextActionCreator = (newText: string) => ({type: "UPDATE-NEW-POST-TEXT", newText}) as const
 export const setUserProfile = (profile: ProfileUserType) => ({type: "SET-USER-PROFILE", profile}) as const
 export const setUserStatus = (status: string) => ({type: "SET-STATUS", status}) as const
 

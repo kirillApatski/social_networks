@@ -1,25 +1,23 @@
-import React, {ChangeEvent} from "react";
+import React, {FC} from "react";
 import s from "./Dialogs.module.css"
 import {DialogItem} from "./DialogItem/DialogItem";
 import {Message} from "./Message/Message";
 import {DialogsPagesType} from "../../redax/store";
+import {Field, InjectedFormProps, reduxForm} from "redux-form";
 
 
 type DialogsPropsType = {
     onChangeMessageText: (body: string) => void
-    onSendMessageClick: () => void
+    onSendMessageClick: (value: string) => void
     dialogsPage: DialogsPagesType
     isAuth: boolean
 }
 export const Dialogs = (props: DialogsPropsType) => {
 
 
-    const onSendMessageClick = () => {
-      props.onSendMessageClick()
-    }
-    const onChangeMessageText = (e: ChangeEvent<HTMLTextAreaElement>) => {
-        let body = e.currentTarget.value;
-        props.onChangeMessageText(body)
+    const onSubmit = (value: FromDataType) => {
+        console.log(value.newMessageBody)
+        props.onSendMessageClick(value.newMessageBody)
     }
     return (
         <div className={s.dialogs}>
@@ -28,13 +26,28 @@ export const Dialogs = (props: DialogsPropsType) => {
             </div>
             <div className={s.messages}>
                 <Message messages={props.dialogsPage.messages}/>
-                <div>
-                    <textarea value={props.dialogsPage.newMessageBody} onChange={onChangeMessageText}></textarea>
-                </div>
-                <div>
-                    <button onClick={onSendMessageClick}>send message</button>
-                </div>
+
+                <AddMessageReduxForm onSubmit={onSubmit}/>
             </div>
         </div>
     )
 }
+
+type FromDataType = {
+    newMessageBody: string
+}
+
+const AddMessageForm: FC<InjectedFormProps<FromDataType>> = (props) => {
+    return (
+        <form onSubmit={props.handleSubmit}>
+            <div>
+                <Field placeholder={'Enter your message'} name={'newMessageBody'} component={"textarea"}/>
+            </div>
+            <div>
+                <button>send message</button>
+            </div>
+        </form>
+    )
+}
+
+const AddMessageReduxForm = reduxForm<FromDataType>({form: 'dialogAddMessageForm'})(AddMessageForm)

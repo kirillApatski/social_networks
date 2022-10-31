@@ -1,5 +1,5 @@
-import {addPostActionCreator, changeNewTextActionCreator} from "./profileReducer";
-import {sendMessageBodyCreator, updateNewMessageBodyCreator} from "./dialogsReducer";
+import {addPostActionCreator} from "./profileReducer";
+import {sendMessageBodyCreator} from "./dialogsReducer";
 
 export type InitializationStateType = {
     profilePages: ProfilePages
@@ -37,9 +37,7 @@ export type StoreType = {
 }
 export type ActionsTypes =
     ReturnType<typeof addPostActionCreator>
-    | ReturnType<typeof changeNewTextActionCreator>
     | ReturnType<typeof sendMessageBodyCreator>
-    | ReturnType<typeof updateNewMessageBodyCreator>
 
 export const store: StoreType = {
     _initializationState: {
@@ -80,13 +78,8 @@ export const store: StoreType = {
         this.onChange = callBack
     },
     dispatch(action) {
-        // this.getState().profilePages = profileReducer(this.getState().profilePages, action)
-        // this.getState().dialogsPages = dialogsReducer(this.getState().dialogsPages, action)
         this.onChange()
     }
 }
-
-// export const sendMessageBodyCreator = () => ({type: "SEND_MESSAGE"}) as const
-// export const updateNewMessageBodyCreator = (body: string) => ({type: "UPDATE_NEW_MESSAGE_BODY", body}) as const
 
 

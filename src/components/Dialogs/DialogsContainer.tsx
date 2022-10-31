@@ -1,7 +1,6 @@
 import {
     DialogsPagesType,
     sendMessageBodyCreator,
-    updateNewMessageBodyCreator
 } from "../../redax/dialogsReducer";
 import {Dialogs} from "./Dialogs";
 import {connect} from "react-redux";
@@ -17,8 +16,7 @@ type mapStateToPropsType = {
     isAuth: boolean
 }
 type mapDispatchToPropsType = {
-    onChangeMessageText: (body: string) => void
-    onSendMessageClick: () => void
+    onSendMessageClick: (newMessageBody: string) => void
 }
 
 const mapStateToProps = (state: AppStateType): mapStateToPropsType => {
@@ -29,11 +27,8 @@ const mapStateToProps = (state: AppStateType): mapStateToPropsType => {
 }
 const mapDispatchToProps = (dispatch: Dispatch):mapDispatchToPropsType => {
     return {
-        onChangeMessageText: (body: string) => {
-            dispatch(updateNewMessageBodyCreator(body))
-        },
-        onSendMessageClick: () => {
-            dispatch(sendMessageBodyCreator())
+        onSendMessageClick: (newMessageBody: string) => {
+            dispatch(sendMessageBodyCreator(newMessageBody))
         }
     }
 }

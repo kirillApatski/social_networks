@@ -30,7 +30,6 @@ export const authReducer = (state: InitialState = initialState, action: ActionTy
             }
         default :
             return state
-
     }
 }
 export const setUserData = (id: number, email: string, login: string) => {

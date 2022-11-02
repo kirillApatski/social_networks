@@ -3,6 +3,8 @@ import React, {FC} from "react";
 import {Post} from "./Post/Post";
 import {PostsType} from "../../../redax/store";
 import {Field, InjectedFormProps, reduxForm} from "redux-form";
+import {maxLength10, requiredFiled} from "../../../utils/validatots/validators";
+import {Textarea} from "../../common/FormsControls/Textarea";
 
 
 
@@ -33,7 +35,7 @@ const AddNwePostForm: FC<InjectedFormProps<FromDataType>> = (props) => {
     return (
         <form onSubmit={props.handleSubmit}>
             <div>
-                <Field component={'textarea'} name={'newPostText'}/>
+                <Field component={Textarea} name={'newPostText'} validate={[requiredFiled, maxLength10]} placeholder='Post message'/>
             </div>
             <div>
                 <button>Add post</button>

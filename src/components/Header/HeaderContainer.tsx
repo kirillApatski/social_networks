@@ -7,7 +7,6 @@ import {InitialState, setUserData, userAuth} from "../../redax/authReducer";
 export class HeaderContainer extends React.Component<InitialState & mapDispatchToProps> {
 
     componentDidMount() {
-
         this.props.userAuth()
     }
 
@@ -19,7 +18,7 @@ export class HeaderContainer extends React.Component<InitialState & mapDispatchT
 }
 
 export type mapDispatchToProps = {
-    setUserData: (id: number, email: string, login: string) => void
+    setUserData: (id: number, email: string, login: string, isAuth: boolean) => void
     userAuth: () => void
 }
 

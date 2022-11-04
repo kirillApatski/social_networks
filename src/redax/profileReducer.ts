@@ -10,7 +10,7 @@ export type PostsType = {
 export type addPostActionCreatorType = ReturnType<typeof addPostActionCreator>
 export type setUserProfileType = ReturnType<typeof setUserProfile>
 export type setUserStatusType = ReturnType<typeof setUserStatus>
-export type ActionsTypes = addPostActionCreatorType | setUserProfileType | setUserStatusType
+export type ProfileActionsTypes = addPostActionCreatorType | setUserProfileType | setUserStatusType
 
 export type InitialStateType = {
     posts: PostsType[]
@@ -47,7 +47,7 @@ export type ProfileUserType = {
     }
 } | null
 
-export const profileReducer = (state: InitialStateType = initialState, action: ActionsTypes): InitialStateType => {
+export const profileReducer = (state: InitialStateType = initialState, action: ProfileActionsTypes): InitialStateType => {
     switch (action.type) {
         case "ADD-POST":
             let newPost: PostsType = {
@@ -81,16 +81,16 @@ export const setUserStatus = (status: string) => ({type: "SET-STATUS", status}) 
 
 export const getUserProfile = (userId: string) => {
     return (dispatch: Dispatch) => {
-        profileAPI.getUserProfile(userId).then(data => {
-            dispatch(setUserProfile(data))
+        profileAPI.getUserProfile(userId).then(res => {
+            dispatch(setUserProfile(res.data))
         })
     }
 }
 
 export const getStatus = (userId: string) => {
     return (dispatch: Dispatch) => {
-        profileAPI.getStatus(userId).then(data => {
-            dispatch(setUserStatus(data))
+        profileAPI.getStatus(userId).then(res => {
+            dispatch(setUserStatus(res.data))
         })
     }
 }
@@ -98,8 +98,8 @@ export const getStatus = (userId: string) => {
 export const updateStatus = (status: string) => {
     return (dispatch: Dispatch) => {
         profileAPI.updateStatus(status)
-            .then(data => {
-            if(data.resultCode === 0) {
+            .then(res => {
+            if(res.data.resultCode === 0) {
                 dispatch(setUserStatus(status))
             }
         })

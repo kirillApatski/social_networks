@@ -1,4 +1,5 @@
 import axios from "axios";
+import {FromDataType} from "../components/Login/Login";
 
 
 const instance = axios.create({
@@ -13,19 +14,12 @@ export const userAPI = {
 
     getUsers(currentPage: number, pagesSize: number) {
         return  instance.get(`users?page=${currentPage}&count=${pagesSize}`)
-            .then(response => response.data)
     },
     followUser(userId: string){
         return instance.post(`follow/${userId}`)
-            .then(response => response.data)
     },
     unFollowUser(userId: string){
         return instance.delete(`follow/${userId}`)
-            .then(response => response.data)
-    },
-    auth(){
-        return instance.get(`auth/me`)
-            .then(response => response.data)
     },
     getUserProfile() {
         return profileAPI.getUserProfile
@@ -35,15 +29,24 @@ export const userAPI = {
 export const profileAPI = {
     getUserProfile(userId: string) {
         return instance.get(`profile/` + userId)
-            .then(response => response.data)
     },
     getStatus (userId: string) {
         return instance.get(`profile/status/` + userId)
-            .then(response => response.data)
     },
     updateStatus (status: string) {
         return instance.put(`profile/status`, {status: status})
-            .then(response => response.data)
+    }
+}
+
+export const authAPI = {
+    me(){
+        return instance.get(`auth/me`)
+    },
+    login(loginFormData: FromDataType) {
+        return instance.post(`auth/login`, loginFormData)
+    },
+    logOut() {
+        return instance.delete(`auth/login`)
     }
 }
 

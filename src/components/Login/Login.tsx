@@ -2,10 +2,19 @@ import React, {FC} from 'react';
 import {Field, InjectedFormProps, reduxForm} from "redux-form";
 import {Input} from "../common/FormsControls/Textarea";
 import {requiredFiled} from "../../utils/validatots/validators";
+import {useDispatch, useSelector} from "react-redux";
+import {loginTC} from "../../redax/authReducer";
+import {AppStateType} from "../../redax/redux-store";
+import {Redirect} from "react-router-dom";
 
 export const Login = () => {
+    const dispatch = useDispatch()
+    const isAuth = useSelector<AppStateType>(state => state.auth.isAuth)
     const onSubmit = (formData:FromDataType) => {
-        console.log(formData)
+        dispatch(loginTC(formData))
+    }
+    if(isAuth) {
+        return <Redirect to={'/profile'}/>
     }
     return (
         <div>
@@ -15,8 +24,8 @@ export const Login = () => {
     );
 };
 
-type FromDataType = {
-    login: string
+export type FromDataType = {
+    email: string
     password: string
     rememberMe: boolean
 }
@@ -25,10 +34,10 @@ const LoginForm: FC<InjectedFormProps<FromDataType>> = (props) => {
     return (
         <form onSubmit={props.handleSubmit}>
             <div>
-                <Field placeholder={"login"} name={"login"} component={Input} validate={[requiredFiled]}/>
+                <Field placeholder={"login"} name={"email"} component={Input} validate={[requiredFiled]}/>
             </div>
             <div>
-                <Field placeholder={"password"} name={"password"} component={Input} validate={[requiredFiled]}/>
+                <Field placeholder={"password"} name={"password"} type={'password'} component={Input} validate={[requiredFiled]}/>
             </div>
             <div>
                 <Field type={"checkbox"} name={"rememberMe"} component={"input"}/> remember me

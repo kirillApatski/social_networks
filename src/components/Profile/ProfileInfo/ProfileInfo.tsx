@@ -16,13 +16,9 @@ export const ProfileInfo = (props: ProfileInfoType) => {
     }
     return (
         <div>
-            {/*<div className={s.profilePicture}>*/}
-            {/*    <img*/}
-            {/*        src="https://yahont-hotel.ru/ckeditor_images/chernomorskoje_vid.jpg"*/}
-            {/*        alt="pictures"/>*/}
-            {/*</div>*/}
+
             <div className={s.description}>
-                <img src={props.profile.photos.small} alt="images/text"/>
+                <img src={props.profile.photos.large} alt="images/text"/>
                 <ProfileStatus status={props.status} updateStatus={props.updateStatus}/>
                 <div>{props.profile.fullName}</div>
                 <div>{props.profile.aboutMe}</div>

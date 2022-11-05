@@ -12,7 +12,13 @@ export class HeaderContainer extends React.Component<InitialState & mapDispatchT
 
     render() {
         return (
-            <Header login={this.props.login} email={this.props.email} id={this.props.id} isAuth={this.props.isAuth} />
+            <Header
+                login={this.props.login}
+                email={this.props.email}
+                id={this.props.id}
+                isAuth={this.props.isAuth}
+                profileImg={this.props.profileImg}
+            />
         )
     }
 }
@@ -27,7 +33,8 @@ const mapStateToProps = (state: AppStateType): InitialState => {
         id: state.auth.id,
         email: state.auth.email,
         login: state.auth.login,
-        isAuth: state.auth.isAuth
+        isAuth: state.auth.isAuth,
+        profileImg: state.profilePages.profile?.photos.small
     }
 }
 

@@ -3,16 +3,19 @@ import {authAPI} from "../api/api";
 import {FromDataType} from "../components/Login/Login";
 import {ThunkAction} from "redux-thunk";
 import {AppActionType, AppStateType} from "./redux-store";
+import {stopSubmit} from "redux-form";
 
 export type setUserDataType = ReturnType<typeof setUserData>
+type stopSubmitType = ReturnType<typeof stopSubmit>
 
-export type AuthActionType = setUserDataType
+export type AuthActionType = setUserDataType | stopSubmitType
 
 export type InitialState = {
     id: number | null
     email: string | null
     login: string | null
     isAuth: boolean
+    profileImg?: string
 }
 
 const initialState = {
@@ -47,11 +50,15 @@ export const userAuth = () => (dispatch: Dispatch<AuthActionType>) => {
             }
         })
 }
+
 export const loginTC = (formData: FromDataType): AppThunk  => (dispatch) => {
     authAPI.login(formData)
         .then(res => {
             if (res.data.resultCode === 0) {
                 dispatch(userAuth())
+            } else {
+                let errorMessages = res.data.messages.length > 0 ?  res.data.messages[0] : 'some error'
+                dispatch(stopSubmit('login', {_error: errorMessages}))
             }
         })
 }

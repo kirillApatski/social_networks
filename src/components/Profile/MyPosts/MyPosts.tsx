@@ -3,7 +3,7 @@ import React, {FC} from "react";
 import {Post} from "./Post/Post";
 import {PostsType} from "../../../redax/store";
 import {Field, InjectedFormProps, reduxForm} from "redux-form";
-import {maxLength10, requiredFiled} from "../../../utils/validatots/validators";
+import {maxLength10, requiredFiled} from "../../../utils/validators/validators";
 import {Textarea} from "../../common/FormsControls/Textarea";
 
 

@@ -17,7 +17,7 @@ export const Header = (props: InitialState) => {
             <img src="https://www.logolynx.com/images/logolynx/3a/3a405b9b2166f2ca3ef2d7722b35b766.png" alt="logo"/>
             <div className={s.loginBlock}>
                 {props.isAuth
-                    ? <div>{props.login} --- <button onClick={logOut}>Log Out</button></div>
+                    ? <div><img style={{width: '50px', height: '50px'}} src={props.profileImg} alt="avatar"/>{props.login} --- <button onClick={logOut}>Log Out</button></div>
                     : <NavLink to={'/login'}>Login</NavLink>}
             </div>
         </header>

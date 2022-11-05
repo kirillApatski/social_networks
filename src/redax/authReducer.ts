@@ -37,12 +37,15 @@ export const authReducer = (state: InitialState = initialState, action: AuthActi
             return state
     }
 }
+
+
 export const setUserData = (id: number | null, email: string | null, login: string | null, isAuth: boolean) => {
     return {type: "SET-USER-DATA", payload: {id, email, login, isAuth}} as const
 }
 
+
 export const userAuth = () => (dispatch: Dispatch<AuthActionType>) => {
-    authAPI.me()
+    return authAPI.me()
         .then(res => {
             if (res.data.resultCode === 0) {
                 let {email, id, login} = res.data.data
@@ -50,19 +53,18 @@ export const userAuth = () => (dispatch: Dispatch<AuthActionType>) => {
             }
         })
 }
-
-export const loginTC = (formData: FromDataType): AppThunk  => (dispatch) => {
+export const loginTC = (formData: FromDataType): AppThunk => (dispatch) => {
     authAPI.login(formData)
         .then(res => {
             if (res.data.resultCode === 0) {
                 dispatch(userAuth())
             } else {
-                let errorMessages = res.data.messages.length > 0 ?  res.data.messages[0] : 'some error'
+                let errorMessages = res.data.messages.length > 0 ? res.data.messages[0] : 'some error'
                 dispatch(stopSubmit('login', {_error: errorMessages}))
             }
         })
 }
-export const logOutTC = (): AppThunk  => (dispatch) => {
+export const logOutTC = (): AppThunk => (dispatch) => {
     authAPI.logOut()
         .then(res => {
             if (res.data.resultCode === 0) {

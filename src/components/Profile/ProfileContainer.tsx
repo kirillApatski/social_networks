@@ -21,9 +21,11 @@ export type mapStateToPropsType = {
     authorizedUserId: number | null
     isAuth: boolean
 }
+
 type PatchParamsType = {
     userId: string
 }
+
 export type UserProfileType = mapStateToPropsType & mapDispatchToPropsTyp
 
 type PropsType = RouteComponentProps<PatchParamsType> & UserProfileType

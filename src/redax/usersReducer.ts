@@ -94,7 +94,7 @@ export const toggleIsFetching = (isFetching: boolean) => ({type: "TOGGLE-IS-FETC
 export const toggleFollowingProgress = (isFetching: boolean, userId: string) => ({type: "TOGGLE-IS-FOLLOWING-PROGRESS", isFetching, userId}) as const
 
 
-export const getUsers = (currentPage: number, pagesSize: number) => {
+export const requestUsers = (currentPage: number, pagesSize: number) => {
     return (dispatch: Dispatch) => {
         dispatch(setCurrentPage(currentPage))
         dispatch(toggleIsFetching(true))

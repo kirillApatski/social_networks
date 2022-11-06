@@ -38,11 +38,11 @@ function App() {
                 <HeaderContainer/>
                 <Navigation/>
                 <div className="appWrapperContent">
-                    <Route path={"/dialogs"}
-                           render={() => <DialogsContainer/>}
-                    />
                     <Route path={"/profile/:userId?"}
                            render={() => <ProfileContainer/>}
+                    />
+                    <Route path={"/dialogs"}
+                           render={() => <DialogsContainer/>}
                     />
                     <Route path={"/users"}
                            render={() => <UsersContainer/>}

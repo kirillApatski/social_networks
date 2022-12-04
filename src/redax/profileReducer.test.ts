@@ -16,7 +16,7 @@ test('length of posts should be incremented', () => {
     expect(newState.posts.length).toBe(3)
 })
 
-it('new post should be added', () => {
+test('new post should be added', () => {
     let action = addPostActionCreator("Hi, my name Kirill")
     let newState = profileReducer(initialState, action)
 

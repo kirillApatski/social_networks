@@ -9,7 +9,7 @@ let initialState = {
     status: ''
 }
 
-it('length of posts should be incremented', () => {
+test('length of posts should be incremented', () => {
     let action = addPostActionCreator("Hi, my name Kirill")
     let newState = profileReducer(initialState, action)
 
@@ -22,7 +22,7 @@ it('new post should be added', () => {
 
     expect(newState.posts[2].message).toBe('Hi, my name Kirill')
 })
-it('length of posts should be decremented', () => {
+test('length of posts should be decremented', () => {
     let action = deletePostAC(1)
     let newState = profileReducer(initialState, action)
 

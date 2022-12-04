@@ -87,7 +87,7 @@ export const deletePostAC = (postId: number) => ({type: "DELETE-POST", postId}) 
 
 
 
-export const getUserProfile = (userId: string) => {
+export const getUserProfile = (userId: number) => {
     return (dispatch: Dispatch) => {
         profileAPI.getUserProfile(userId).then(res => {
             dispatch(setUserProfile(res.data))
@@ -95,7 +95,7 @@ export const getUserProfile = (userId: string) => {
     }
 }
 
-export const getStatus = (userId: string) => {
+export const getStatus = (userId: number) => {
     return (dispatch: Dispatch) => {
         profileAPI.getStatus(userId).then(res => {
             dispatch(setUserStatus(res.data))

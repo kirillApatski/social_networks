@@ -44,33 +44,27 @@ export const setUserData = (id: number | null, email: string | null, login: stri
 }
 
 
-export const userAuth = () => (dispatch: Dispatch<AuthActionType>) => {
-    return authAPI.me()
-        .then(res => {
-            if (res.data.resultCode === 0) {
-                let {email, id, login} = res.data.data
-                dispatch(setUserData(id, email, login, true))
-            }
-        })
+export const userAuth = () => async (dispatch: Dispatch<AuthActionType>) => {
+    const response = await authAPI.me();
+    if (response.data.resultCode === 0) {
+        let {email, id, login} = response.data.data
+        dispatch(setUserData(id, email, login, true))
+    }
 }
-export const loginTC = (formData: FromDataType): AppThunk => (dispatch) => {
-    authAPI.login(formData)
-        .then(res => {
-            if (res.data.resultCode === 0) {
-                dispatch(userAuth())
-            } else {
-                let errorMessages = res.data.messages.length > 0 ? res.data.messages[0] : 'some error'
-                dispatch(stopSubmit('login', {_error: errorMessages}))
-            }
-        })
+export const loginTC = (formData: FromDataType): AppThunk => async (dispatch) => {
+    const response = await authAPI.login(formData)
+    if (response.data.resultCode === 0) {
+        dispatch(userAuth())
+    } else {
+        let errorMessages = response.data.messages.length > 0 ? response.data.messages[0] : 'some error'
+        dispatch(stopSubmit('login', {_error: errorMessages}))
+    }
 }
-export const logOutTC = (): AppThunk => (dispatch) => {
-    authAPI.logOut()
-        .then(res => {
-            if (res.data.resultCode === 0) {
-                dispatch(setUserData(null, null, null, false))
-            }
-        })
+export const logOutTC = (): AppThunk => async (dispatch) => {
+    const response = await authAPI.logOut()
+    if (response.data.resultCode === 0) {
+        dispatch(setUserData(null, null, null, false))
+    }
 }
 
 

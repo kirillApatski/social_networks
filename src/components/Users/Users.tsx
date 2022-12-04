@@ -9,9 +9,9 @@ type UsersPropsType = {
     currentPage: number
     onChangePages: (page: number) => void
     users: Array<userType>
-    follow: (id: string) => void
-    unfollow: (id: string) => void
-    followingProgress: Array<string>
+    follow: (id: number) => void
+    unfollow: (id: number) => void
+    followingProgress: Array<number>
 }
 
 export const Users = (props: UsersPropsType) => {
@@ -21,7 +21,6 @@ export const Users = (props: UsersPropsType) => {
     for (let i = 1; i < pagesCount; i++) {
         pages.push(i)
     }
-
     return (
         <div>
             <div>

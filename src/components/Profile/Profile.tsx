@@ -1,4 +1,4 @@
-import React from "react";
+import React, {FC} from "react";
 import {ProfileInfo} from "./ProfileInfo/ProfileInfo";
 import {MyPostsContainer} from "./MyPosts/MyPostsContainer";
 import {ProfileUserType} from "../../redax/profileReducer";
@@ -9,10 +9,10 @@ export type ProfilePropsType = {
     updateStatus: (status: string) => void
 }
 
-export const Profile = (props: ProfilePropsType) =>{
+export const Profile: FC<ProfilePropsType> = ({profile, status, updateStatus}) =>{
     return (
         <section>
-            <ProfileInfo profile={props.profile} status={props.status} updateStatus={props.updateStatus} />
+            <ProfileInfo profile={profile} status={status} updateStatus={updateStatus} />
             <MyPostsContainer/>
         </section>
     )

@@ -1,5 +1,5 @@
 import axios from "axios";
-import {FromDataType} from "../components/Login/Login";
+import {FromDataType} from "../ui/components/Login/Login";
 
 
 const instance = axios.create({

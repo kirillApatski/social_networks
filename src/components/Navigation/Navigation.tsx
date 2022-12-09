@@ -13,7 +13,6 @@ export const Navigation = () => {
                     <li className={s.item}><NavLink to="/news" activeClassName={s.active}>News</NavLink></li>
                     <li className={s.item}><NavLink to="/music" activeClassName={s.active}>Music</NavLink></li>
                     <li className={s.item}><NavLink to="/settings" activeClassName={s.active}>Settings</NavLink></li>
-                    <li className={s.item}><NavLink to="/login" activeClassName={s.active}>Login</NavLink></li>
                 </ul>
             </nav>
         </section>

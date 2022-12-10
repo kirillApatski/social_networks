@@ -2,13 +2,13 @@ import React from "react";
 import {InitialState, logOutTC} from "../../../bll/redax/authReducer";
 import {NavLink} from "react-router-dom";
 import {useDispatch, useSelector} from "react-redux";
-import {HeaderWrapper} from "../../stylesComponent/HeaderWrapper";
-import {Logo} from "../../stylesComponent/Logo";
+import {Logo} from "./LogoStyled";
 import {WrapperContainer} from "../../styles/WrapperContainer";
 import {ButtonStyled} from "../../components/Button/ButtonStyled";
 import {AppStateType} from "../../../bll/redax/redux-store";
 import {Avatar} from "../../components/Avatar/Avatar";
 import {Wrapper} from "../../styles/Wrapper";
+import {HeaderWrapperStyled} from "./HeaderWrapperStyled";
 
 
 export const Header = (props: InitialState) => {
@@ -19,7 +19,7 @@ export const Header = (props: InitialState) => {
     }
 
     return (
-        <HeaderWrapper>
+        <HeaderWrapperStyled>
             <Logo>LOGO</Logo>
             <Wrapper>
                 {props.isAuth
@@ -29,6 +29,6 @@ export const Header = (props: InitialState) => {
                     </WrapperContainer>
                     : <NavLink to={'/login'}>Login</NavLink>}
             </Wrapper>
-        </HeaderWrapper>
+        </HeaderWrapperStyled>
     )
 };

@@ -1,5 +1,5 @@
 import React from "react";
-import {NavigationWrapper} from "../../stylesComponent/NavigationWrapper";
+import {NavigationWrapper} from "./NavigationWrapper";
 import {SidebarStyled} from "./Sidebar/Sidebar";
 import {NavLinks} from "./NavLink";
 

@@ -1,20 +1,21 @@
 import React, {useEffect} from 'react';
-import {Navigation} from "./ui/components/Navigation/Navigation";
-import {News} from "./ui/components/News/News";
-import {Music} from "./ui/components/Music/Music";
-import {Settings} from "./ui/components/Settings/Settings";
+import {Navigation} from "./ui/layout/Navigation/Navigation";
+import {News} from "./ui/pages/News/News";
+import {Music} from "./ui/pages/Music/Music";
+import {Settings} from "./ui/pages/Settings/Settings";
 import {Route} from "react-router-dom";
-import DialogsContainer from "./ui/components/Dialogs/DialogsContainer";
-import UsersContainer from "./ui/components/Users/UsersContainer";
-import ProfileContainer from "./ui/components/Profile/ProfileContainer";
-import HeaderContainer from "./ui/components/Header/HeaderContainer";
-import {Login} from "./ui/components/Login/Login";
-import {initializeApp} from "./redax/app-reducer";
+import DialogsContainer from "./ui/pages/Dialogs/DialogsContainer";
+import UsersContainer from "./ui/pages/Users/UsersContainer";
+import ProfileContainer from "./ui/pages/Profile/ProfileContainer";
+import HeaderContainer from "./ui/layout/Header/HeaderContainer";
+import {Login} from "./ui/pages/Login/Login";
+import {initializeApp} from "./bll/redax/app-reducer";
 import {useDispatch, useSelector} from "react-redux";
-import {AppStateType} from "./redax/redux-store";
-import {Preloader} from "./ui/components/common/Preloader/Preloader";
-import {AppWrapper} from "./ui/stylesComponent/AppWrapper";
-import {WrapperContainer} from "./ui/stylesComponent/WrapperContainer";
+import {AppStateType} from "./bll/redax/redux-store";
+import {Preloader} from "./ui/common/Preloader/Preloader";
+import {AppWrapper} from "./ui/styles/AppWrapper";
+import {WrapperContainer} from "./ui/styles/WrapperContainer";
+import {Wrapper} from "./ui/styles/Wrapper";
 
 
 function App() {
@@ -36,9 +37,8 @@ function App() {
         <AppWrapper>
             <WrapperContainer>
                 <HeaderContainer/>
-
                 <Navigation/>
-                <div className="appWrapperContent">
+                <Wrapper width={"70%"}>
                     <Route path={"/profile/:userId?"}
                            render={() => <ProfileContainer/>}
                     />
@@ -52,9 +52,8 @@ function App() {
                     <Route path={"/music"} render={() => <Music/>}/>
                     <Route path={"/settings"} render={() => <Settings/>}/>
                     <Route path={"/login"} render={() => <Login/>}/>
-                </div>
+                </Wrapper>
             </WrapperContainer>
-
         </AppWrapper>
     );
 }

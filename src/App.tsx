@@ -31,8 +31,6 @@ function App() {
     if (!initialized) {
         return <Preloader/>
     }
-
-
     return (
         <AppWrapper>
             <WrapperContainer>

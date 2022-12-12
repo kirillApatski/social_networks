@@ -24,7 +24,7 @@ export const Header = (props: InitialState) => {
             <Wrapper>
                 {props.isAuth
                     ? <WrapperContainer>
-                        <Avatar size={"small"}  img={`${avatar}`}/>
+                        <Avatar size={"smallest"}  img={`${avatar}`}/>
                         <ButtonStyled onClick={logOut}>Log Out</ButtonStyled>
                     </WrapperContainer>
                     : <NavLink to={'/login'}>Login</NavLink>}

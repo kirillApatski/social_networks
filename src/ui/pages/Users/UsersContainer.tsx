@@ -53,7 +53,7 @@ export class UsersContainer extends React.Component<UsersPropsType> {
                     users={this.props.users}
                     onChangePages={this.onChangePages}
                     currentPage={this.props.currentPage}
-                    pagesSize={this.props.currentPage}
+                    pagesSize={this.props.pagesSize}
                     follow={this.props.follow}
                     usersTotalCount={this.props.usersTotalCount}
                     unfollow={this.props.unfollow}

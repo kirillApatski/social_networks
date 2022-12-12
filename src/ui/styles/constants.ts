@@ -3,7 +3,7 @@ export const theme = {
         primaryLightest: "#3d3d3d",
         primaryLighter: "#222222",
         primary: "#141414",
-        primaryDark: "#4F659E",
+        primaryDark: "#171717",
         textOnPrimary: "#eaeaea",
 
         secondary: "#ECECEC",

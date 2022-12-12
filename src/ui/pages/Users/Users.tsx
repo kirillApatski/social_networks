@@ -2,6 +2,7 @@ import React from 'react';
 import {userType} from "../../../bll/redax/usersReducer";
 import {User} from "./User";
 import {UiWrapper} from "../../styles/Wrapper";
+import {Pagination} from "../../components/Pagination/Pagination";
 
 type UsersPropsType = {
     usersTotalCount: number
@@ -15,21 +16,14 @@ type UsersPropsType = {
 }
 
 export const Users = (props: UsersPropsType) => {
-
-    let pagesCount = Math.ceil(props.usersTotalCount / props.pagesSize)
-    let pages = []
-    for (let i = 1; i < pagesCount; i++) {
-        pages.push(i)
-    }
+    console.log(props.pagesSize)
     return (
         <UiWrapper flexDirection={"column"}
-        width={"100%"}>
-            <div>
-                {pages.slice(0, 20).map(page => <span key={page}
-                                                      onClick={() => {
-                                                          props.onChangePages(page)
-                                                      }}>{page}</span>)}
-            </div>
+                   width={"100%"}>
+            <UiWrapper justifyContent={"center"}>
+                <Pagination pageCount={props.pagesSize} totalCount={props.usersTotalCount}
+                            onChangePages={props.onChangePages}/>
+            </UiWrapper>
             {
                 props.users.map(user => <User
                     key={user.id}
@@ -40,6 +34,7 @@ export const Users = (props: UsersPropsType) => {
                 />)
             }
         </UiWrapper>
+
     );
 };
 

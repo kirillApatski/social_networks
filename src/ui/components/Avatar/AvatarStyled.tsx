@@ -8,7 +8,7 @@ type SAvatarPropsType = {
 };
 
 const imgSizes = (size: SizesType) => {
-    const sizePx = size === "small" ? 35 : size === "large" ? 200 : size === "smallest" ? 30 : 60;
+    const sizePx = size === "small" ? 100 : size === "large" ? 200 : size === "smallest" ? 35 : 60;
     return {
         minWidth: sizePx,
         maxWidth: sizePx,

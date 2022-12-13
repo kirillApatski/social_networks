@@ -6,6 +6,7 @@ import {Field, InjectedFormProps, reduxForm} from "redux-form";
 import {maxLength10, requiredFiled} from "../../../utils/validators/validators";
 import {Textarea} from "../../common/FormsControls/Textarea";
 import {DialogsPagesType} from "../../../bll/redax/dialogsReducer";
+import {Button} from "../../components/Button/Button";
 
 
 type DialogsPropsType = {
@@ -46,7 +47,7 @@ const AddMessageForm: FC<InjectedFormProps<FromDataType>> = (props) => {
                 <Field placeholder={'Enter your message'} name={'newMessageBody'} component={Textarea} validate={[requiredFiled, maxLength10]}/>
             </div>
             <div>
-                <button>send message</button>
+                <Button label={'Send message'}>Send message</Button>
             </div>
         </form>
     )

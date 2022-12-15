@@ -11,14 +11,22 @@ export type addPostActionCreatorType = ReturnType<typeof addPostActionCreator>
 export type setUserProfileType = ReturnType<typeof setUserProfile>
 export type setUserStatusType = ReturnType<typeof setUserStatus>
 export type deletePostACType = ReturnType<typeof deletePostAC>
-export type ProfileActionsTypes = addPostActionCreatorType | setUserProfileType | setUserStatusType | deletePostACType
+export type setUserPhotoType = ReturnType<typeof setUserPhoto>
+export type ProfileActionsTypes = addPostActionCreatorType | setUserProfileType | setUserStatusType | deletePostACType | setUserPhotoType
 
 export type InitialStateType = {
     posts: PostsType[]
     profile: ProfileUserType | null
     status: string
 }
-let initialState = {
+
+export type ProfilePageType = {
+    profile: ProfileUserType | null
+    status: string
+    posts: Array<PostsType>
+}
+
+let initialState: ProfilePageType = {
     posts: [
         {id: 1, message: "Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ab aliquam architecto asperiores aspernatur commodi eum exercitationem laboriosam nisi perferendis, quam reiciendis ullam veritatis voluptates voluptatum!", likeCount: 15},
         {id: 2, message: "Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ab aliquam architecto asperiores aspernatur commodi eum exercitationem laboriosam nisi perferendis, quam reiciendis ullam veritatis voluptates voluptatum!Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ab aliquam architecto asperiores aspernatur commodi eum exercitationem laboriosam nisi perferendis, quam reiciendis ullam veritatis voluptates voluptatum!", likeCount: 20},
@@ -27,7 +35,7 @@ let initialState = {
     status: ''
 }
 export type ProfileUserType = {
-    aboutMe: string
+    aboutMe: string | null
     contacts: {
         facebook: null | string
         website: null | string
@@ -46,9 +54,9 @@ export type ProfileUserType = {
         small: string
         large: string
     }
-} | null
+}
 
-export const profileReducer = (state: InitialStateType = initialState, action: ProfileActionsTypes): InitialStateType => {
+export const profileReducer = (state: ProfilePageType = initialState, action: ProfileActionsTypes): ProfilePageType => {
     switch (action.type) {
         case "ADD-POST":
             let newPost: PostsType = {
@@ -75,6 +83,13 @@ export const profileReducer = (state: InitialStateType = initialState, action: P
                 ...state,
                 status: action.status
             }
+        case "SET-USER-PHOTO":
+            return {
+                ...state,
+                profile: {
+                    ...state.profile!, photos: action.photo
+                }
+            }
         default:
             return state
     }
@@ -82,7 +97,7 @@ export const profileReducer = (state: InitialStateType = initialState, action: P
 
 export const addPostActionCreator = (postText: string) => ({type: "ADD-POST", postText}) as const
 export const setUserProfile = (profile: ProfileUserType) => ({type: "SET-USER-PROFILE", profile}) as const
-export const setUserPhoto = (photo: {large: string, small: string}) => ({type: "SET-USER-PROFILE", photo}) as const
+export const setUserPhoto = (photo: {large: string, small: string}) => ({type: "SET-USER-PHOTO", photo}) as const
 export const setUserStatus = (status: string) => ({type: "SET-STATUS", status}) as const
 export const deletePostAC = (postId: number) => ({type: "DELETE-POST", postId}) as const
 

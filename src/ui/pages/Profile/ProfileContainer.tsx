@@ -41,20 +41,6 @@ class ProfileContainer extends React.Component<PropsType> {
         this.props.getUserProfile(userId)
         this.props.getStatus(userId)
     }
-    componentDidUpdate(prevProps: any, prevState: any, snapshot?: any) {
-        let userId = this.props.match.params.userId
-        // if (this.props.profile !== null) {
-        //     document.title = this.props.profile.fullName
-        // }
-        if (prevProps.match.params.userId !== this.props.match.params.userId && this.props.match.params.userId) {
-            console.log(prevProps.match.params.userId)
-            this.props.getUserProfile(this.props.match.params.userId)
-            this.props.getStatus(this.props.match.params.userId)
-        }
-    }
-    componentWillUnmount() {
-        document.title = 'Social network'
-    }
     render() {
         return <Profile profile={this.props.profile} status={this.props.status} updateStatus={this.props.updateStatus} getPhoto={this.props.getPhoto}/>
     }
@@ -62,7 +48,7 @@ class ProfileContainer extends React.Component<PropsType> {
 
 export const mapStateToProps = (state: AppStateType): mapStateToPropsType => {
     return {
-        profile: state.profilePages.profile,
+        profile: state.profilePages.profile!,
         status: state.profilePages.status,
         authorizedUserId: state.auth.id,
         isAuth: state.auth.isAuth

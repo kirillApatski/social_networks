@@ -1,13 +1,12 @@
-import React, {useEffect, useRef} from 'react';
-import {getPhoto, getUserProfile, ProfileUserType} from "../../../../bll/redax/profileReducer";
+import React, {useRef} from 'react';
+import {getPhoto, ProfileUserType} from "../../../../bll/redax/profileReducer";
 import {Preloader} from "../../../common/Preloader/Preloader";
 import ProfileStatus from "./ProfileStatus";
 import {AvatarStyled} from "../../../components/Avatar/AvatarStyled";
 import {UiWrapper, Wrapper} from "../../../styles/Wrapper";
 import {TextStyled} from "../../../components/Text/TextStyled";
 import {Button} from "../../../components/Button/Button";
-import {useDispatch, useSelector} from "react-redux";
-import {AppStateType} from "../../../../bll/redax/redux-store";
+import {useDispatch} from "react-redux";
 
 type ProfileInfoType = {
     profile: ProfileUserType | null
@@ -30,7 +29,6 @@ export const ProfileInfo = (props: ProfileInfoType) => {
     }
 
     if (!props.profile) return <Preloader/>
-
     return (
 
         <UiWrapper alignItems={"center"} flexWrap={"wrap"} justifyContent={"space-around"}>

@@ -17,8 +17,8 @@ export const Post = (props: PostPropsType) => {
 
     let postItem = props.posts.map(post => {
         return (
-            <>
-                <UiWrapper key={post.id}
+            <div key={post.id}>
+                <UiWrapper
                            justifyContent={"space-between"}
                            alignItems={"center"}
                 >
@@ -30,7 +30,7 @@ export const Post = (props: PostPropsType) => {
                     </Wrapper>
                 </UiWrapper>
                 <TextStyled>Like: {post.likeCount}</TextStyled>
-            </>
+            </div>
         )
     })
 

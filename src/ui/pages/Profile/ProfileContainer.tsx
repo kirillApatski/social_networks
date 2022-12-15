@@ -1,6 +1,6 @@
 import React from "react";
 import {Profile} from "./Profile";
-import {getStatus, getUserProfile, ProfileUserType, updateStatus} from "../../../bll/redax/profileReducer";
+import {getPhoto, getStatus, getUserProfile, ProfileUserType, updateStatus} from "../../../bll/redax/profileReducer";
 
 import {connect} from "react-redux";
 import {AppStateType} from "../../../bll/redax/redux-store";
@@ -13,6 +13,7 @@ export type mapDispatchToPropsTyp = {
     getUserProfile: (userId: string) => void
     getStatus: (userId: string) => void
     updateStatus: (status: string) => void
+    getPhoto: (photo: any) => void
 }
 
 export type mapStateToPropsType = {
@@ -40,9 +41,22 @@ class ProfileContainer extends React.Component<PropsType> {
         this.props.getUserProfile(userId)
         this.props.getStatus(userId)
     }
-
+    componentDidUpdate(prevProps: any, prevState: any, snapshot?: any) {
+        let userId = this.props.match.params.userId
+        // if (this.props.profile !== null) {
+        //     document.title = this.props.profile.fullName
+        // }
+        if (prevProps.match.params.userId !== this.props.match.params.userId && this.props.match.params.userId) {
+            console.log(prevProps.match.params.userId)
+            this.props.getUserProfile(this.props.match.params.userId)
+            this.props.getStatus(this.props.match.params.userId)
+        }
+    }
+    componentWillUnmount() {
+        document.title = 'Social network'
+    }
     render() {
-        return <Profile profile={this.props.profile} status={this.props.status} updateStatus={this.props.updateStatus}/>
+        return <Profile profile={this.props.profile} status={this.props.status} updateStatus={this.props.updateStatus} getPhoto={this.props.getPhoto}/>
     }
 }
 
@@ -56,7 +70,7 @@ export const mapStateToProps = (state: AppStateType): mapStateToPropsType => {
 }
 
 export default compose<React.ComponentType>(
-    connect(mapStateToProps, {getUserProfile, getStatus, updateStatus}),
+    connect(mapStateToProps, {getUserProfile, getStatus, updateStatus, getPhoto}),
     withRouter,
     WithAuthRedirect
 )(ProfileContainer)

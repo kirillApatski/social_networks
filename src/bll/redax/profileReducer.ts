@@ -82,12 +82,13 @@ export const profileReducer = (state: InitialStateType = initialState, action: P
 
 export const addPostActionCreator = (postText: string) => ({type: "ADD-POST", postText}) as const
 export const setUserProfile = (profile: ProfileUserType) => ({type: "SET-USER-PROFILE", profile}) as const
+export const setUserPhoto = (photo: {large: string, small: string}) => ({type: "SET-USER-PROFILE", photo}) as const
 export const setUserStatus = (status: string) => ({type: "SET-STATUS", status}) as const
 export const deletePostAC = (postId: number) => ({type: "DELETE-POST", postId}) as const
 
 
 
-export const getUserProfile = (userId: number) => {
+export const getUserProfile = (userId: any) => {
     return (dispatch: Dispatch) => {
         profileAPI.getUserProfile(userId).then(res => {
             dispatch(setUserProfile(res.data))
@@ -99,6 +100,15 @@ export const getStatus = (userId: number) => {
     return (dispatch: Dispatch) => {
         profileAPI.getStatus(userId).then(res => {
             dispatch(setUserStatus(res.data))
+        })
+    }
+}
+export const getPhoto = (file: any) => {
+    console.log(file)
+    return (dispatch: Dispatch) => {
+        profileAPI.updatePhoto(file)
+            .then(res => {
+            dispatch(setUserPhoto(res.data.data.photos))
         })
     }
 }

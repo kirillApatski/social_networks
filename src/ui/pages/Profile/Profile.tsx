@@ -1,7 +1,7 @@
 import React, {FC} from "react";
 import {ProfileInfo} from "./ProfileInfo/ProfileInfo";
 import {MyPostsContainer} from "./MyPosts/MyPostsContainer";
-import {getPhoto, ProfileUserType} from "../../../bll/redax/profileReducer";
+import {ProfileUserType} from "../../../bll/redax/profileReducer";
 import {Wrapper} from "../../styles/Wrapper";
 
 export type ProfilePropsType = {

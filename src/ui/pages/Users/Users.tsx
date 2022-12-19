@@ -4,6 +4,7 @@ import {User} from "./User";
 import {UiWrapper} from "../../styles/Wrapper";
 import {Pagination} from "../../components/Pagination/Pagination";
 
+
 type UsersPropsType = {
     usersTotalCount: number
     pagesSize: number
@@ -16,7 +17,7 @@ type UsersPropsType = {
 }
 
 export const Users = (props: UsersPropsType) => {
-    console.log(props.pagesSize)
+
     return (
         <UiWrapper flexDirection={"column"}
                    width={"100%"}>

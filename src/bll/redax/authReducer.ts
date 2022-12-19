@@ -15,7 +15,7 @@ export type InitialState = {
     email: string | null
     login: string | null
     isAuth: boolean
-    profileImg?: string
+    profileImg?: string | null
 }
 
 const initialState = {

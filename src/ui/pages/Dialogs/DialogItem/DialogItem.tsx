@@ -1,7 +1,7 @@
 import {NavLink} from "react-router-dom";
 import React from "react";
 import {DialogsType} from "../../../../bll/redax/dialogsReducer";
-import {UiWrapper} from "../../../styles/Wrapper";
+import {LinkStyled} from "../../../layout/Navigation/LinkStyled";
 
 type DialogsItemsPropsType = {
     dialogs: DialogsType[]
@@ -11,7 +11,13 @@ type DialogsItemsPropsType = {
 export const DialogItem = (props: DialogsItemsPropsType) => {
 
     let dialogsItem = props.dialogs.map(dialog => {
-        return <UiWrapper key={dialog.id}><NavLink style={isActive => isActive ? {color: "red"} : {}} to={`/dialogs/${dialog.id}`}>{dialog.name}</NavLink></UiWrapper>
+        return (
+                <LinkStyled key={dialog.id}>
+                    <NavLink to={`/dialogs/${dialog.id}`}>
+                        {dialog.name}
+                    </NavLink>
+                </LinkStyled>
+        )
     })
 
     return (

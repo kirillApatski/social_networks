@@ -1,5 +1,4 @@
 import React, {FC} from "react";
-import s from "./Dialogs.module.css"
 import {DialogItem} from "./DialogItem/DialogItem";
 import {Message} from "./Message/Message";
 import {Field, InjectedFormProps, reduxForm} from "redux-form";
@@ -7,6 +6,7 @@ import {maxLength10, requiredFiled} from "../../../utils/validators/validators";
 import {Textarea} from "../../common/FormsControls/Textarea";
 import {DialogsPagesType} from "../../../bll/redax/dialogsReducer";
 import {Button} from "../../components/Button/Button";
+import {UiWrapper} from "../../styles/Wrapper";
 
 
 type DialogsPropsType = {
@@ -19,20 +19,19 @@ export const Dialogs = (props: DialogsPropsType) => {
 
 
     const onSubmit = (value: FromDataType) => {
-        console.log(value.newMessageBody)
         props.onSendMessageClick(value.newMessageBody)
     }
     return (
-        <div className={s.dialogs}>
-            <div className={s.dialogsItems}>
+        <UiWrapper width={"100%"}>
+            <UiWrapper flexDirection={"column"}>
                 <DialogItem dialogs={props.dialogsPage.dialogs}/>
-            </div>
-            <div className={s.messages}>
+            </UiWrapper>
+            <UiWrapper flexDirection={"column"} width={"100%"}>
                 <Message messages={props.dialogsPage.messages}/>
 
                 <AddMessageReduxForm onSubmit={onSubmit}/>
-            </div>
-        </div>
+            </UiWrapper>
+        </UiWrapper>
     )
 }
 

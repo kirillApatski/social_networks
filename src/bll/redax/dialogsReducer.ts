@@ -29,9 +29,9 @@ let initialState = {
         {id: 6, name: "Max"}
     ] as DialogsType[],
     messages: [
-        {id: 1, message: "Hi"},
-        {id: 2, message: "How are you"},
-        {id: 3, message: "Yo"},
+        {id: 1, message: "Lorem ipsum dolor sit amet, consectetur adipisicing elit. Similique, soluta."},
+        {id: 2, message: "Lorem ipsum dolor sit amet, consectetur adipisicing elit. Similique, soluta.Lorem ipsum dolor sit amet, consectetur adipisicing elit. Similique, soluta."},
+        {id: 3, message: "Lorem ipsum dolor sit amet, consectetur adipisicing elit."},
         {id: 4, message: "Yo"},
         {id: 5, message: "Yo"},
     ] as MessagesType[],
@@ -40,7 +40,6 @@ let initialState = {
 
 export const dialogsReducer = (state: InitialStateType = initialState, action: DialogsActionsTypes): InitialStateType => {
     switch (action.type) {
-
         case "SEND_MESSAGE":
             let newMessage = {id: 5, message: action.newMessageBody}
             return {

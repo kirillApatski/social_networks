@@ -1,5 +1,6 @@
 import {Dispatch} from "redux";
 import {profileAPI} from "../../api/api";
+import {AppThunkType} from "./redux-store";
 
 export type PostsType = {
     id: number
@@ -103,7 +104,7 @@ export const deletePostAC = (postId: number) => ({type: "DELETE-POST", postId}) 
 
 
 
-export const getUserProfile = (userId: any) => {
+export const getUserProfile = (userId: any): AppThunkType => {
     return (dispatch: Dispatch) => {
         profileAPI.getUserProfile(userId).then(res => {
             dispatch(setUserProfile(res.data))
@@ -111,15 +112,14 @@ export const getUserProfile = (userId: any) => {
     }
 }
 
-export const getStatus = (userId: number) => {
+export const getStatus = (userId: number): AppThunkType => {
     return (dispatch: Dispatch) => {
         profileAPI.getStatus(userId).then(res => {
             dispatch(setUserStatus(res.data))
         })
     }
 }
-export const getPhoto = (file: any) => {
-    console.log(file)
+export const getPhoto = (file: any): AppThunkType => {
     return (dispatch: Dispatch) => {
         profileAPI.updatePhoto(file)
             .then(res => {
@@ -128,7 +128,7 @@ export const getPhoto = (file: any) => {
     }
 }
 
-export const updateStatus = (status: string) => {
+export const updateStatus = (status: string): AppThunkType => {
     return (dispatch: Dispatch) => {
         profileAPI.updateStatus(status)
             .then(res => {

@@ -4,7 +4,6 @@ import {News} from "./ui/pages/News/News";
 import {Music} from "./ui/pages/Music/Music";
 import {Settings} from "./ui/pages/Settings/Settings";
 import {Route} from "react-router-dom";
-import DialogsContainer from "./ui/pages/Dialogs/DialogsContainer";
 import UsersContainer from "./ui/pages/Users/UsersContainer";
 import ProfileContainer from "./ui/pages/Profile/ProfileContainer";
 import HeaderContainer from "./ui/layout/Header/HeaderContainer";
@@ -16,6 +15,7 @@ import {Preloader} from "./ui/common/Preloader/Preloader";
 import {AppWrapper} from "./ui/styles/AppWrapper";
 import {WrapperContainer} from "./ui/styles/WrapperContainer";
 import {Wrapper} from "./ui/styles/Wrapper";
+import {Dialogs} from "./ui/pages/Dialogs/Dialogs";
 
 
 function App() {
@@ -41,7 +41,7 @@ function App() {
                            render={() => <ProfileContainer/>}
                     />
                     <Route path={"/dialogs"}
-                           render={() => <DialogsContainer/>}
+                           render={() => <Dialogs/>}
                     />
                     <Route path={"/users"}
                            render={() => <UsersContainer/>}

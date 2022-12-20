@@ -1,19 +1,21 @@
-import React from 'react';
+import React, {FC} from 'react';
 import style from './FormsControls.module.css'
 import {TextareaStyled} from "../../components/Textarea/TextareaStyled";
 
 
+type TextareaPropsType = {
+    placeholder: string
+    name: string
+}
 
 
-export const Textarea = ({input, meta, ...props}: any) => {
-
-    const hasError = meta.touched && meta.error
+export const Textarea: FC<TextareaPropsType> = ({placeholder, name}) => {
 
     return (
-        <div className={hasError ? style.error : ""}>
-            <TextareaStyled {...input} {...props}/>
+        <div>
+            <TextareaStyled placeholder={placeholder} name={name}/>
             <div>
-                {hasError && <span>Some Error</span>}
+                <span>Some Error</span>
             </div>
         </div>
     );

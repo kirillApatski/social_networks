@@ -1,13 +1,12 @@
 import React from "react";
-import {MessagesType} from "../../../../bll/redax/dialogsReducer";
 import {UiWrapper} from "../../../styles/Wrapper";
+import {useAppSelector} from "../../../../hooks/hooks";
 
-type MessagesItemPropsType = {
-    messages: MessagesType[]
-}
 
-export const Message = (props: MessagesItemPropsType) => {
-    let messageItem = props.messages.map(message => <UiWrapper width={"fit-content"} key={message.id}>{message.message}</UiWrapper>)
+export const Message = () => {
+    const messages = useAppSelector(state => state.dialogsPages.messages)
+
+    let messageItem = messages.map(message => <UiWrapper width={"fit-content"} key={message.id}>{message.message}</UiWrapper>)
     return (
         <>
             {messageItem}

@@ -1,49 +1,63 @@
-import React, {FC} from "react";
+import React from "react";
 import {DialogItem} from "./DialogItem/DialogItem";
 import {Message} from "./Message/Message";
-import {Field, InjectedFormProps, reduxForm} from "redux-form";
+import {Field, reduxForm} from "redux-form";
 import {maxLength10, requiredFiled} from "../../../utils/validators/validators";
 import {Textarea} from "../../common/FormsControls/Textarea";
-import {DialogsPagesType} from "../../../bll/redax/dialogsReducer";
+import {sendMessageBodyCreator} from "../../../bll/redax/dialogsReducer";
 import {Button} from "../../components/Button/Button";
 import {UiWrapper} from "../../styles/Wrapper";
+import {useAppDispatch} from "../../../hooks/hooks";
+import {useFormik} from "formik";
 
 
-type DialogsPropsType = {
-    onChangeMessageText: (body: string) => void
-    onSendMessageClick: (value: string) => void
-    dialogsPage: DialogsPagesType
-    isAuth: boolean
-}
-export const Dialogs = (props: DialogsPropsType) => {
 
+export const Dialogs = () => {
+    const dispatch = useAppDispatch()
 
-    const onSubmit = (value: FromDataType) => {
-        props.onSendMessageClick(value.newMessageBody)
+    const addNewMessage = (value: FromDataType) => {
+        dispatch(sendMessageBodyCreator(value.newMessageBody))
     }
     return (
         <UiWrapper width={"100%"}>
             <UiWrapper flexDirection={"column"}>
-                <DialogItem dialogs={props.dialogsPage.dialogs}/>
+                <DialogItem/>
             </UiWrapper>
             <UiWrapper flexDirection={"column"} width={"100%"}>
-                <Message messages={props.dialogsPage.messages}/>
+                <Message/>
 
-                <AddMessageReduxForm onSubmit={onSubmit}/>
+                <AddMessageForm onSubmit={addNewMessage}/>
             </UiWrapper>
         </UiWrapper>
     )
 }
 
+
 type FromDataType = {
     newMessageBody: string
 }
 
-const AddMessageForm: FC<InjectedFormProps<FromDataType>> = (props) => {
+type AddMessageFormPropsType = {
+    onSubmit: (data: FromDataType) => void
+}
+
+const AddMessageForm = (props: AddMessageFormPropsType) => {
+
+    const { handleBlur, handleSubmit, touched, handleChange, isValid, values, errors } = useFormik({
+        initialValues: {
+            message: ""
+        },
+
+        onSubmit: (values) => {
+                console.log(values)
+        },
+    });
+
     return (
-        <form onSubmit={props.handleSubmit}>
+        <form onSubmit={handleSubmit}>
             <div>
-                <Field placeholder={'Enter your message'} name={'newMessageBody'} component={Textarea} validate={[requiredFiled, maxLength10]}/>
+                <input type="text" name="message"/>
+                <Textarea placeholder={'Enter your message'} name={'newMessageBody'}/>
             </div>
             <div>
                 <Button label={'Send message'}>Send message</Button>
@@ -51,5 +65,3 @@ const AddMessageForm: FC<InjectedFormProps<FromDataType>> = (props) => {
         </form>
     )
 }
-
-const AddMessageReduxForm = reduxForm<FromDataType>({form: 'dialogAddMessageForm'})(AddMessageForm)

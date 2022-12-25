@@ -57,6 +57,21 @@ export type ProfileUserType = {
     }
 }
 
+export type TActiveProfile = {
+    fullName: string
+    lookingForAJob: boolean
+    contacts: {
+        facebook: null | string
+        github: null | string
+        instagram: null | string
+        mainLink: null | string
+        twitter: null | string
+        vk: null | string
+        website: null | string
+        youtube: null | string
+    }
+}
+
 export const profileReducer = (state: ProfilePageType = initialState, action: ProfileActionsTypes): ProfilePageType => {
     switch (action.type) {
         case "ADD-POST":
@@ -136,5 +151,11 @@ export const updateStatus = (status: string): AppThunkType => {
                 dispatch(setUserStatus(status))
             }
         })
+    }
+}
+
+export const updateUserProfile = (dataProfile: TActiveProfile): AppThunkType => {
+    return (dispatch: Dispatch) => {
+        profileAPI.updateUserProfile(dataProfile).then(res => dispatch(setUserProfile(res.data.data)))
     }
 }

@@ -28,30 +28,8 @@ export const theme = {
             neutral: "#99a5b9",
             neutralShadow: "#99a5b9",
         },
-        cards: {
-            default: ["#7398CE", "rgba(115,152,206,0.62)"],
-            text: "#fff",
-            skeleton: "rgba(115,152,206,0.06)",
-            shadow: "rgba(115,152,206,0.8)",
-        },
-        loader: {
-            alphaBg: "rgba(255, 255, 255, 0.4)",
-        },
     },
     sizes: {
         headerHeight: 68,
-    },
-    media: {
-        extraLarge: 1140,
-        large: 960,
-        medium: 720,
-        small: 540,
-    },
-    //z-index
-    orders: {
-        inputErrors: 2,
-        modal: 10,
-        notifications: 15,
-        dropdown: 5,
-    },
+    }
 };

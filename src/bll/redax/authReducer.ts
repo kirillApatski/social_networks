@@ -10,6 +10,9 @@ type stopSubmitType = ReturnType<typeof stopSubmit>
 
 export type AuthActionType = setUserDataType | stopSubmitType
 
+export type AppThunk<ReturnType = void> = ThunkAction<ReturnType, AppStateType, unknown, AppActionType>
+
+
 export type InitialState = {
     id: number | null
     email: string | null
@@ -51,6 +54,7 @@ export const userAuth = () => async (dispatch: Dispatch<AuthActionType>) => {
         dispatch(setUserData(id, email, login, true))
     }
 }
+
 export const loginTC = (formData: FromDataType): AppThunk => async (dispatch) => {
     const response = await authAPI.login(formData)
     if (response.data.resultCode === 0) {
@@ -60,6 +64,7 @@ export const loginTC = (formData: FromDataType): AppThunk => async (dispatch) =>
         dispatch(stopSubmit('login', {_error: errorMessages}))
     }
 }
+
 export const logOutTC = (): AppThunk => async (dispatch) => {
     const response = await authAPI.logOut()
     if (response.data.resultCode === 0) {
@@ -68,5 +73,4 @@ export const logOutTC = (): AppThunk => async (dispatch) => {
 }
 
 
-export type AppThunk<ReturnType = void> = ThunkAction<ReturnType, AppStateType, unknown, AppActionType>
 

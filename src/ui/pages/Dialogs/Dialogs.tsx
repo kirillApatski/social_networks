@@ -1,8 +1,7 @@
 import React from "react";
 import {DialogItem} from "./DialogItem/DialogItem";
 import {Message} from "./Message/Message";
-import {Field, reduxForm} from "redux-form";
-import {maxLength10, requiredFiled} from "../../../utils/validators/validators";
+import * as Yup from "yup"
 import {Textarea} from "../../common/FormsControls/Textarea";
 import {sendMessageBodyCreator} from "../../../bll/redax/dialogsReducer";
 import {Button} from "../../components/Button/Button";
@@ -15,7 +14,7 @@ import {useFormik} from "formik";
 export const Dialogs = () => {
     const dispatch = useAppDispatch()
 
-    const addNewMessage = (value: FromDataType) => {
+    const addNewMessageHandle = (value: FromDataType) => {
         dispatch(sendMessageBodyCreator(value.newMessageBody))
     }
     return (
@@ -26,7 +25,7 @@ export const Dialogs = () => {
             <UiWrapper flexDirection={"column"} width={"100%"}>
                 <Message/>
 
-                <AddMessageForm onSubmit={addNewMessage}/>
+                <AddMessageForm onSubmit={addNewMessageHandle}/>
             </UiWrapper>
         </UiWrapper>
     )
@@ -43,24 +42,32 @@ type AddMessageFormPropsType = {
 
 const AddMessageForm = (props: AddMessageFormPropsType) => {
 
-    const { handleBlur, handleSubmit, touched, handleChange, isValid, values, errors } = useFormik({
+    const {
+        handleChange,
+        handleSubmit,
+        values,
+    } = useFormik({
         initialValues: {
-            message: ""
+            newMessageBody: "",
         },
-
+        validationSchema: Yup.object({
+            newMessageBody: Yup.string()
+                .min(3, "Must be more than 2")
+                .max(50, "Must be less than 50")
+                .required('Required')
+        }),
         onSubmit: (values) => {
-                console.log(values)
-        },
+             props.onSubmit(values)
+        }
     });
-
     return (
         <form onSubmit={handleSubmit}>
+
             <div>
-                <input type="text" name="message"/>
-                <Textarea placeholder={'Enter your message'} name={'newMessageBody'}/>
+                <Textarea placeholder={'Enter your message'} name='newMessageBody' onChange={handleChange} value={values.newMessageBody}/>
             </div>
             <div>
-                <Button label={'Send message'}>Send message</Button>
+                <Button type="submit" label={'Send message'}>Send message</Button>
             </div>
         </form>
     )

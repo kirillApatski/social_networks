@@ -37,6 +37,9 @@ function App() {
                 <HeaderContainer/>
                 <Navigation/>
                 <Wrapper width={"70%"}>
+                    <Route exact path={"/"}
+                           render={() => <ProfileContainer/>}
+                    />
                     <Route path={"/profile/:userId?"}
                            render={() => <ProfileContainer/>}
                     />

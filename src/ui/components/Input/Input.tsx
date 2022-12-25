@@ -4,14 +4,12 @@ import {InputStyled} from "./InputStyled";
 export type TDefaultInputProps = DetailedHTMLProps<InputHTMLAttributes<HTMLInputElement>,
     HTMLInputElement>;
 export type TInputProps = TDefaultInputProps & {
-    leftIcon?: React.ReactNode;
-    rightIcon?: React.ReactNode;
     error?: string;
     ref?: string;
 };
 
 const Input: React.FC<TInputProps> = ({...props}) => {
-    const onChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+     const onChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         props.onChange && props.onChange(e);
     };
     const onBlur = (e: React.FocusEvent<HTMLInputElement>) => {
@@ -32,8 +30,6 @@ const Input: React.FC<TInputProps> = ({...props}) => {
                 value={props.value}
                 onBlur={onBlur}
                 onError={props.onError}
-                hasLeftIcon={!!props.leftIcon}
-                hasRightIcon={!!props.rightIcon}
             />
     );
 };

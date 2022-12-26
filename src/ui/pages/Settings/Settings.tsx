@@ -5,35 +5,33 @@ import Input from "../../components/Input/Input";
 import {Button} from "../../components/Button/Button";
 import {useFormik} from "formik";
 import * as Yup from "yup";
-import {useAppDispatch} from "../../../hooks/hooks";
-import {TActiveProfile, updateUserProfile} from "../../../bll/redax/profileReducer";
+import {useAppDispatch, useAppSelector} from "../../../hooks/hooks";
+import {updateUserProfile} from "../../../bll/redax/profileReducer";
 
 export const Settings = () => {
     const dispatch = useAppDispatch()
+    const profile = useAppSelector(state => state.profilePages.profile)
     const {
         handleChange,
         handleSubmit,
         values,
+        setFieldValue
     } = useFormik({
-        initialValues: {
-            facebook: "",
-            github: "",
-            instagram: "",
-            mainLink: "",
-            twitter: "",
-            vk: "",
-            website: "",
-            youtube: ""
-        },
+        initialValues: {...profile.contacts, ...profile},
         validationSchema: Yup.object({
-
+            fullName: Yup.string()
+                .min(3, "Must be more than 2")
+                .max(50, "Must be less than 50")
+                .required('Required')
+            ,
         }),
         onSubmit: (values) => {
-            console.log(values)
-            const validProfile: TActiveProfile = {
-
-                fullName: '',
-                lookingForAJob: false,
+            const validProfile = {
+                aboutMe: "Just me",
+                lookingForAJob: values.lookingForAJob,
+                lookingForAJobDescription: values.lookingForAJobDescription,
+                fullName: values.fullName,
+                userId: values.userId,
                 contacts: {
                     facebook: values.facebook,
                     website: values.website,
@@ -45,7 +43,7 @@ export const Settings = () => {
                     mainLink: values.mainLink,
                 },
             }
-            // dispatch(updateUserProfile(validProfile))
+            dispatch(updateUserProfile(validProfile))
         }
     });
     return (
@@ -53,20 +51,27 @@ export const Settings = () => {
             <TextStyled>Settings profile</TextStyled>
             <Wrapper flexDirection={"column"}>
                 <form onSubmit={handleSubmit}>
-                    <UiWrapper>
+                    <UiWrapper flexDirection={"column"} alignItems={"center"}>
                         <TextStyled>Full Name</TextStyled>
                         <Input
                             type={"text"}
-                            // value={values}
-                            name={"github"}
+                            value={values.fullName}
+                            name={"fullName"}
                             onChange={handleChange}
                         />
-                        <TextStyled>GitHub</TextStyled>
+                        <TextStyled>looking For A Job Description</TextStyled>
                         <Input
                             type={"text"}
-                            value={values.github}
-                            name={"github"}
+                            value={values.lookingForAJobDescription}
+                            name={"lookingForAJobDescription"}
                             onChange={handleChange}
+                        />
+                        <TextStyled>lookingForAJob</TextStyled>
+                        <Input
+                            type={"checkbox"}
+                            checked={values.lookingForAJob}
+                            name={"checkbox"}
+                            onChange={(event) => setFieldValue("lookingForAJob", event.target.checked)}
                         />
                     </UiWrapper>
                     <TextStyled>GitHub</TextStyled>
@@ -98,6 +103,7 @@ export const Settings = () => {
 
                         onChange={handleChange}
                     />
+
                     <TextStyled>Vk</TextStyled>
                     <Input
                         type={"text"}
@@ -127,6 +133,7 @@ export const Settings = () => {
                         name={"mainLink"}
                         onChange={handleChange}
                     />
+
                     <Button type={"submit"} label={"Save"}>Save</Button>
                 </form>
             </Wrapper>

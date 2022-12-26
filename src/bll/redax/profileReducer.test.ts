@@ -5,7 +5,27 @@ let initialState = {
         {id: 1, message: "Hi, how are you", likeCount: 15},
         {id: 2, message: "It's my first post", likeCount: 20},
     ] as Array<PostsType>,
-    profile: null,
+    profile: {
+        contacts: {
+            facebook: "",
+            website: "",
+            vk: "",
+            twitter: "",
+            youtube: "",
+            github: "",
+            instagram: "",
+            mainLink: ""
+        },
+        lookingForAJob: false,
+        lookingForAJobDescription: "",
+        fullName: "",
+        userId: 0,
+        photos: {
+            small: "",
+            large: ""
+        },
+        aboutMe: "",
+    },
     status: ''
 }
 

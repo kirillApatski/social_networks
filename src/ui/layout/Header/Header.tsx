@@ -12,7 +12,7 @@ import {HeaderWrapperStyled} from "./HeaderWrapperStyled";
 
 
 export const Header = (props: InitialState) => {
-    const avatar = useSelector<AppStateType>(state => state.profilePages.profile?.photos.small)
+    const avatar = useSelector<AppStateType>(state => state.profilePages.profile.photos?.small)
     const dispatch = useDispatch()
     const logOut = () => {
         dispatch(logOutTC())

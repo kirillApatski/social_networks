@@ -12,7 +12,7 @@ type PostPropsType = {
 
 
 export const Post = (props: PostPropsType) => {
-    const avatar = useSelector<AppStateType>(state => state.profilePages.profile?.photos.small)
+    const avatar = useSelector<AppStateType>(state => state.profilePages.profile.photos?.small)
 
 
     let postItem = props.posts.map(post => {

@@ -34,7 +34,7 @@ export const navLinks = [
         link: PATH.news,
     },
     {
-        id: 5,
+        id: 6,
         label: "settings",
         link: PATH.settings,
     }

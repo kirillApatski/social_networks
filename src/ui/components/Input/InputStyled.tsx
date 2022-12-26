@@ -9,6 +9,7 @@ interface TSInputProps {
 
 export const InputStyled = styled.input<TSInputProps>`
   padding: 10px 15px;
+  margin: 10px 0;
   border-radius: 15px;
   background-color: ${({theme}) => theme.colors.input.default};
   border: 1px solid rgba(0, 0, 0, 0.2);

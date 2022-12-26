@@ -19,6 +19,7 @@ const Input: React.FC<TInputProps> = ({...props}) => {
         props.onKeyUp && props.onKeyUp(e);
     };
 
+
     return (
             <InputStyled
                 placeholder={props.placeholder || ""}
@@ -30,6 +31,7 @@ const Input: React.FC<TInputProps> = ({...props}) => {
                 value={props.value}
                 onBlur={onBlur}
                 onError={props.onError}
+                checked={props.checked}
             />
     );
 };

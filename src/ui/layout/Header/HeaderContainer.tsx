@@ -30,7 +30,7 @@ const mapStateToProps = (state: AppStateType): InitialState => {
         email: state.auth.email,
         login: state.auth.login,
         isAuth: state.auth.isAuth,
-        profileImg: state.profilePages.profile?.photos.small
+        profileImg: state.profilePages.profile.photos?.small
     }
 }
 

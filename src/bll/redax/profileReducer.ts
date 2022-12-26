@@ -13,62 +13,81 @@ export type setUserProfileType = ReturnType<typeof setUserProfile>
 export type setUserStatusType = ReturnType<typeof setUserStatus>
 export type deletePostACType = ReturnType<typeof deletePostAC>
 export type setUserPhotoType = ReturnType<typeof setUserPhoto>
-export type ProfileActionsTypes = addPostActionCreatorType | setUserProfileType | setUserStatusType | deletePostACType | setUserPhotoType
+export type ProfileActionsTypes =
+    addPostActionCreatorType
+    | setUserProfileType
+    | setUserStatusType
+    | deletePostACType
+    | setUserPhotoType
 
 export type InitialStateType = {
     posts: PostsType[]
-    profile: ProfileUserType | null
+    profile: ProfileUserType
     status: string
 }
 
 export type ProfilePageType = {
-    profile: ProfileUserType | null
+    profile: ProfileUserType
     status: string
     posts: Array<PostsType>
 }
 
 let initialState: ProfilePageType = {
     posts: [
-        {id: 1, message: "Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ab aliquam architecto asperiores aspernatur commodi eum exercitationem laboriosam nisi perferendis, quam reiciendis ullam veritatis voluptates voluptatum!", likeCount: 15},
-        {id: 2, message: "Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ab aliquam architecto asperiores aspernatur commodi eum exercitationem laboriosam nisi perferendis, quam reiciendis ullam veritatis voluptates voluptatum!Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ab aliquam architecto asperiores aspernatur commodi eum exercitationem laboriosam nisi perferendis, quam reiciendis ullam veritatis voluptates voluptatum!", likeCount: 20},
+        {
+            id: 1,
+            message: "Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ab aliquam architecto asperiores aspernatur commodi eum exercitationem laboriosam nisi perferendis, quam reiciendis ullam veritatis voluptates voluptatum!",
+            likeCount: 15
+        },
+        {
+            id: 2,
+            message: "Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ab aliquam architecto asperiores aspernatur commodi eum exercitationem laboriosam nisi perferendis, quam reiciendis ullam veritatis voluptates voluptatum!Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ab aliquam architecto asperiores aspernatur commodi eum exercitationem laboriosam nisi perferendis, quam reiciendis ullam veritatis voluptates voluptatum!",
+            likeCount: 20
+        },
     ] as Array<PostsType>,
-    profile: null,
-    status: ''
+    profile: {
+        contacts: {
+            facebook: "",
+            website: "",
+            vk: "",
+            twitter: "",
+            youtube: "",
+            github: "",
+            instagram: "",
+            mainLink: ""
+        },
+        lookingForAJob: false,
+        lookingForAJobDescription: "",
+        fullName: "",
+        userId: 0,
+        photos: {
+            small: "",
+            large: ""
+        },
+        aboutMe: "",
+    },
+    status: '',
 }
+
 export type ProfileUserType = {
-    aboutMe: string | null
+    aboutMe: string
     contacts: {
-        facebook: null | string
-        website: null | string
-        vk: null | string
-        twitter: null | string
-        instagram: null | string
-        youtube: null | string
-        github: null | string
-        mainLink: null | string
+        facebook: string
+        website: string
+        vk: string
+        twitter: string
+        instagram: string
+        youtube: string
+        github: string
+        mainLink: string
     }
     lookingForAJob: boolean
     lookingForAJobDescription: string
     fullName: string
     userId: number
-    photos: {
+    photos?: {
         small: string
         large: string
-    }
-}
-
-export type TActiveProfile = {
-    fullName: string
-    lookingForAJob: boolean
-    contacts: {
-        facebook: null | string
-        github: null | string
-        instagram: null | string
-        mainLink: null | string
-        twitter: null | string
-        vk: null | string
-        website: null | string
-        youtube: null | string
     }
 }
 
@@ -113,10 +132,9 @@ export const profileReducer = (state: ProfilePageType = initialState, action: Pr
 
 export const addPostActionCreator = (postText: string) => ({type: "ADD-POST", postText}) as const
 export const setUserProfile = (profile: ProfileUserType) => ({type: "SET-USER-PROFILE", profile}) as const
-export const setUserPhoto = (photo: {large: string, small: string}) => ({type: "SET-USER-PHOTO", photo}) as const
+export const setUserPhoto = (photo: { large: string, small: string }) => ({type: "SET-USER-PHOTO", photo}) as const
 export const setUserStatus = (status: string) => ({type: "SET-STATUS", status}) as const
 export const deletePostAC = (postId: number) => ({type: "DELETE-POST", postId}) as const
-
 
 
 export const getUserProfile = (userId: any): AppThunkType => {
@@ -138,8 +156,8 @@ export const getPhoto = (file: any): AppThunkType => {
     return (dispatch: Dispatch) => {
         profileAPI.updatePhoto(file)
             .then(res => {
-            dispatch(setUserPhoto(res.data.data.photos))
-        })
+                dispatch(setUserPhoto(res.data.data.photos))
+            })
     }
 }
 
@@ -147,15 +165,15 @@ export const updateStatus = (status: string): AppThunkType => {
     return (dispatch: Dispatch) => {
         profileAPI.updateStatus(status)
             .then(res => {
-            if(res.data.resultCode === 0) {
-                dispatch(setUserStatus(status))
-            }
-        })
+                if (res.data.resultCode === 0) {
+                    dispatch(setUserStatus(status))
+                }
+            })
     }
 }
 
-export const updateUserProfile = (dataProfile: TActiveProfile): AppThunkType => {
+export const updateUserProfile = (dataProfile: ProfileUserType): any => {
     return (dispatch: Dispatch) => {
-        profileAPI.updateUserProfile(dataProfile).then(res => dispatch(setUserProfile(res.data.data)))
+        profileAPI.updateUserProfile(dataProfile)
     }
 }

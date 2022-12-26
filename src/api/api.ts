@@ -1,6 +1,6 @@
 import axios from "axios";
 import {FromDataType} from "../ui/pages/Login/Login";
-import {TActiveProfile} from "../bll/redax/profileReducer";
+import {ProfileUserType} from "../bll/redax/profileReducer";
 
 
 const instance = axios.create({
@@ -51,7 +51,7 @@ export const profileAPI = {
                 }
             })
     },
-    updateUserProfile(data: TActiveProfile){
+    updateUserProfile(data: ProfileUserType){
         return instance.put('/profile', data)
     }
 }

@@ -6,7 +6,7 @@ import {News} from "./News/News";
 import {Music} from "./Music/Music";
 import {Settings} from "./Settings/Settings";
 import {Login} from "./Login/Login";
-import UsersContainer from "./Users/UsersContainer";
+import {Users} from "./Users/Users";
 
 export const Pages = () => {
     return (
@@ -21,7 +21,7 @@ export const Pages = () => {
                    render={() => <Dialogs/>}
             />
             <Route path={"/users"}
-                   render={() => <UsersContainer/>}
+                   render={() => <Users/>}
             />
             <Route path={"/news"} render={() => <News/>}/>
             <Route path={"/music"} render={() => <Music/>}/>

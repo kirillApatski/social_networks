@@ -1,21 +1,20 @@
 import React from "react";
-import {PostsType} from "../../../../../bll/redax/profileReducer";
 import {AvatarStyled} from "../../../../components/Avatar/AvatarStyled";
 import {useSelector} from "react-redux";
 import {AppStateType} from "../../../../../bll/redax/redux-store";
 import {UiWrapper, Wrapper} from "../../../../styles/Wrapper";
 import {TextStyled} from "../../../../components/Text/TextStyled";
-
-type PostPropsType = {
-    posts: PostsType[]
-}
+import {useAppSelector} from "../../../../../hooks/hooks";
 
 
-export const Post = (props: PostPropsType) => {
+
+
+export const Post = () => {
     const avatar = useSelector<AppStateType>(state => state.profilePages.profile.photos?.small)
+    const posts = useAppSelector(state => state.profilePages.posts)
 
 
-    let postItem = props.posts.map(post => {
+    let postItem = posts.map(post => {
         return (
             <div key={post.id}>
                 <UiWrapper

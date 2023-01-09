@@ -130,7 +130,9 @@ export const profileReducer = (state: ProfilePageType = initialState, action: Pr
     }
 }
 
-export const addPostActionCreator = (postText: string) => ({type: "ADD-POST", postText}) as const
+export const addPostActionCreator = (postText: string) => {
+    return  {type: "ADD-POST", postText} as const
+}
 export const setUserProfile = (profile: ProfileUserType) => ({type: "SET-USER-PROFILE", profile}) as const
 export const setUserPhoto = (photo: { large: string, small: string }) => ({type: "SET-USER-PHOTO", photo}) as const
 export const setUserStatus = (status: string) => ({type: "SET-STATUS", status}) as const

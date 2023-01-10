@@ -1,5 +1,5 @@
 import {Dispatch} from "redux";
-import {authAPI} from "../../api/api";
+import {authAPI, securityApi} from "../../api/api";
 import {FromDataType} from "../../ui/pages/Login/Login";
 import {ThunkAction} from "redux-thunk";
 import {AppActionType, AppStateType} from "./redux-store";
@@ -25,13 +25,14 @@ const initialState = {
     id: null,
     email: null,
     login: null,
-    isAuth: false
-
+    isAuth: false,
+    captcha: null
 }
 
 export const authReducer = (state: InitialState = initialState, action: AuthActionType): InitialState => {
     switch (action.type) {
         case "SET-USER-DATA":
+        case "GET-CAPTCHA-URL":
             return {
                 ...state,
                 ...action.payload
@@ -45,6 +46,9 @@ export const authReducer = (state: InitialState = initialState, action: AuthActi
 export const setUserData = (id: number | null, email: string | null, login: string | null, isAuth: boolean) => {
     return {type: "SET-USER-DATA", payload: {id, email, login, isAuth}} as const
 }
+export const getCaptchaUrlSuccess = (captchaUrl: string) => {
+    return {type: "GET-CAPTCHA-URL", payload: {captchaUrl}} as const
+}
 
 
 export const userAuth = () => async (dispatch: Dispatch<AuthActionType>) => {
@@ -55,11 +59,21 @@ export const userAuth = () => async (dispatch: Dispatch<AuthActionType>) => {
     }
 }
 
+export const getCaptchaUrl = () => async (dispatch: Dispatch<AuthActionType>) => {
+    const response = await securityApi.getCaptchaUrl()
+    const captchaUrl = response.data.url
+
+    dispatch(getCaptchaUrlSuccess(captchaUrl))
+}
+
 export const loginTC = (formData: FromDataType): AppThunk => async (dispatch) => {
     const response = await authAPI.login(formData)
     if (response.data.resultCode === 0) {
         dispatch(userAuth())
     } else {
+        if(response.data.resultCode === 10) {
+            dispatch(getCaptchaUrl())
+        }
         let errorMessages = response.data.messages.length > 0 ? response.data.messages[0] : 'some error'
         dispatch(stopSubmit('login', {_error: errorMessages}))
     }

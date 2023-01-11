@@ -7,8 +7,9 @@ import {stopSubmit} from "redux-form";
 
 export type setUserDataType = ReturnType<typeof setUserData>
 type stopSubmitType = ReturnType<typeof stopSubmit>
+type getCaptchaUrlSuccessType = ReturnType<typeof getCaptchaUrlSuccess>
 
-export type AuthActionType = setUserDataType | stopSubmitType
+export type AuthActionType = setUserDataType | stopSubmitType | getCaptchaUrlSuccessType
 
 export type AppThunk<ReturnType = void> = ThunkAction<ReturnType, AppStateType, unknown, AppActionType>
 
@@ -19,6 +20,7 @@ export type InitialState = {
     login: string | null
     isAuth: boolean
     profileImg?: string | null
+    captcha: string
 }
 
 const initialState = {
@@ -26,16 +28,20 @@ const initialState = {
     email: null,
     login: null,
     isAuth: false,
-    captcha: null
+    captcha: ''
 }
 
 export const authReducer = (state: InitialState = initialState, action: AuthActionType): InitialState => {
     switch (action.type) {
         case "SET-USER-DATA":
-        case "GET-CAPTCHA-URL":
             return {
                 ...state,
                 ...action.payload
+            }
+        case "GET-CAPTCHA-URL":
+            return {
+                ...state,
+                captcha: action.payload.captchaUrl
             }
         default :
             return state
@@ -62,7 +68,6 @@ export const userAuth = () => async (dispatch: Dispatch<AuthActionType>) => {
 export const getCaptchaUrl = () => async (dispatch: Dispatch<AuthActionType>) => {
     const response = await securityApi.getCaptchaUrl()
     const captchaUrl = response.data.url
-
     dispatch(getCaptchaUrlSuccess(captchaUrl))
 }
 
@@ -71,7 +76,7 @@ export const loginTC = (formData: FromDataType): AppThunk => async (dispatch) =>
     if (response.data.resultCode === 0) {
         dispatch(userAuth())
     } else {
-        if(response.data.resultCode === 10) {
+        if (response.data.resultCode === 10) {
             dispatch(getCaptchaUrl())
         }
         let errorMessages = response.data.messages.length > 0 ? response.data.messages[0] : 'some error'

@@ -3,7 +3,7 @@ import {ProfileActionsTypes, profileReducer} from "./profileReducer";
 import {DialogsActionsTypes, dialogsReducer} from "./dialogsReducer";
 import {UserActionsTypes, usersReducer} from "./usersReducer";
 import {AuthActionType, authReducer} from "./authReducer";
-import thunk, {ThunkAction} from "redux-thunk";
+import thunk, {ThunkAction, ThunkDispatch} from "redux-thunk";
 import { reducer as formReducer } from 'redux-form'
 import {appReducer} from "./app-reducer";
 
@@ -19,7 +19,6 @@ let rootReducer = combineReducers({
 })
 
 export type AppStateType = ReturnType<typeof rootReducer>
-
 export type AppThunkType<ReturnType = void> = ThunkAction<ReturnType, AppStateType, unknown, AppActionType>
 
 export let store = createStore(rootReducer, applyMiddleware(thunk))

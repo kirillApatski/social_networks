@@ -1,19 +1,17 @@
 import React, {FC} from 'react';
-import {Field, InjectedFormProps, reduxForm} from "redux-form";
-import {requiredFiled} from "../../../utils/validators/validators";
-import {useDispatch, useSelector} from "react-redux";
+import {useDispatch} from "react-redux";
 import {loginTC} from "../../../bll/redax/authReducer";
-import {AppStateType} from "../../../bll/redax/redux-store";
 import {Redirect} from "react-router-dom";
 import Input from "../../components/Input/Input";
 import {Button} from "../../components/Button/Button";
 import {UiWrapper} from "../../styles/Wrapper";
 import {useFormik} from "formik";
 import * as Yup from "yup";
+import {useAppSelector} from "../../../hooks/hooks";
 
 export const Login = () => {
     const dispatch = useDispatch()
-    const isAuth = useSelector<AppStateType>(state => state.auth.isAuth)
+    const isAuth = useAppSelector(state => state.auth.isAuth)
     const onSubmit = (formData: FromDataType) => {
         dispatch(loginTC(formData))
     }
@@ -37,11 +35,12 @@ type LoginFormType = {
     onSubmit: (formData: FromDataType) => void
 }
 const LoginForm: FC<LoginFormType> = (props) => {
+    const captcha = useAppSelector(state => state.auth.captcha)
+    console.log(captcha)
     const {
         handleChange,
         handleSubmit,
         values,
-        errors,
         setFieldValue
     } = useFormik({
         initialValues: {
@@ -88,6 +87,11 @@ const LoginForm: FC<LoginFormType> = (props) => {
                 /> remember me
                 <Button label="login" type={"submit"}>Login</Button>
             </UiWrapper>
+            {captcha && (
+                <UiWrapper justifyContent={"center"}>
+                    <img style={{width: '200px', height: '100px'}} src={captcha} alt="captcha"/>
+                </UiWrapper>
+            )}
         </form>
     )
 }

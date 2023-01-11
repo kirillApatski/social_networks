@@ -14,6 +14,7 @@ export class HeaderContainer extends React.Component<InitialState & mapDispatchT
                 id={this.props.id}
                 isAuth={this.props.isAuth}
                 profileImg={this.props.profileImg}
+                captcha={this.props.captcha}
             />
         )
     }
@@ -30,7 +31,8 @@ const mapStateToProps = (state: AppStateType): InitialState => {
         email: state.auth.email,
         login: state.auth.login,
         isAuth: state.auth.isAuth,
-        profileImg: state.profilePages.profile.photos?.small
+        profileImg: state.profilePages.profile.photos?.small,
+        captcha: state.auth.captcha
     }
 }
 

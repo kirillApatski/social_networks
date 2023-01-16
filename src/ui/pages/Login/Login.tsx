@@ -30,13 +30,13 @@ export type FromDataType = {
     email: string
     password: string
     rememberMe: boolean
+    captcha: string
 }
 type LoginFormType = {
     onSubmit: (formData: FromDataType) => void
 }
 const LoginForm: FC<LoginFormType> = (props) => {
     const captcha = useAppSelector(state => state.auth.captcha)
-    console.log(captcha)
     const {
         handleChange,
         handleSubmit,
@@ -46,7 +46,8 @@ const LoginForm: FC<LoginFormType> = (props) => {
         initialValues: {
             email: "",
             password: "",
-            rememberMe: false
+            rememberMe: false,
+            captcha: ""
         },
         validationSchema: Yup.object({
             email: Yup
@@ -59,6 +60,7 @@ const LoginForm: FC<LoginFormType> = (props) => {
         }),
         onSubmit: (values) => {
             props.onSubmit(values)
+            console.log(values)
         }
     });
     return (
@@ -90,6 +92,12 @@ const LoginForm: FC<LoginFormType> = (props) => {
             {captcha && (
                 <UiWrapper justifyContent={"center"}>
                     <img style={{width: '200px', height: '100px'}} src={captcha} alt="captcha"/>
+                    <Input
+                        type={"text"}
+                        name={"captcha"}
+                        onChange={handleChange}
+                        placeholder={"captcha"}
+                    />
                 </UiWrapper>
             )}
         </form>
